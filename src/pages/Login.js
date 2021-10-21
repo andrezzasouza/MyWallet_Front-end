@@ -36,6 +36,7 @@ export default function Login () {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           clickable={enabled}
+          required
         />
         <Input
           placeholder="Senha"
@@ -43,6 +44,7 @@ export default function Login () {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           clickable={enabled}
+          required
         />
         <LongButton type="submit" margin="36px" clickable={enabled}>
           {enabled ? (
