@@ -4,7 +4,7 @@ import Balance from "./Balance";
 
 export default function DataContainer () {
 
-  const hasEntries = false;
+  const hasEntries = true;
 
   return (
     <DataHolder hasEntries={hasEntries}>
