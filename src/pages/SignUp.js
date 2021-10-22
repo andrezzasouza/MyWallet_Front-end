@@ -39,6 +39,7 @@ export default function SignUp () {
           value={name}
           onChange={(e) => setName(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <Input
@@ -47,6 +48,7 @@ export default function SignUp () {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <Input
@@ -55,6 +57,7 @@ export default function SignUp () {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <Input
@@ -63,6 +66,7 @@ export default function SignUp () {
           value={repeatPassword}
           onChange={(e) => setRepeatPassword(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <LongButton type="submit" margin="32px" clickable={enabled}>
@@ -79,7 +83,7 @@ export default function SignUp () {
           )}
         </LongButton>
       </form>
-      <Link to="/">
+      <Link to="">
         <RedirectText>
           Já tem uma conta? Entre agora!
         </RedirectText>

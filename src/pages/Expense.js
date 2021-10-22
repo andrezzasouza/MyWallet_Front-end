@@ -31,6 +31,7 @@ export default function Expense () {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <Input
@@ -39,6 +40,7 @@ export default function Expense () {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <LongButton type="submit" margin="36px" clickable={enabled}>

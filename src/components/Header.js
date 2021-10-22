@@ -20,6 +20,9 @@ export default function Header ({pageTitle, hasIcon, margin}) {
 }
 
 const AppHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: ${(props) => props.margin};
   
   h1 {
@@ -29,6 +32,8 @@ const AppHeader = styled.header`
     color: #ffffff;
   }
 `;
+
 const Exit = styled(VscSignOut)`
-  
+  font-size: 28.55px;
+  color: #ffffff;
 `;

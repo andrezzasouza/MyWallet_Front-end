@@ -24,11 +24,7 @@ export default function Income () {
 
   return (
     <>
-      <Header 
-        pageTitle="Nova entrada"
-        hasIcon={false}
-        margin="40px"
-       />
+      <Header pageTitle="Nova entrada" hasIcon={false} margin="40px" />
       <form onSubmit={addIncome}>
         <Input
           placeholder="Valor"
@@ -36,6 +32,7 @@ export default function Income () {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <Input
@@ -44,6 +41,7 @@ export default function Income () {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <LongButton type="submit" margin="36px" clickable={enabled}>

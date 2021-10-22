@@ -20,10 +20,10 @@ export default function Login () {
     e.preventDefault();
     // axios route
     // if success
-    history.push("/home");
+    // history.push("/home");
     // else
     // error alert
-    setEnabled(true);
+    // setEnabled(true);
   }
 
   return (
@@ -36,6 +36,7 @@ export default function Login () {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <Input
@@ -44,6 +45,7 @@ export default function Login () {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           clickable={enabled}
+          disabled={!enabled}
           required
         />
         <LongButton type="submit" margin="36px" clickable={enabled}>
@@ -61,7 +63,9 @@ export default function Login () {
         </LongButton>
       </form>
       <Link to="/sign-up">
-        <RedirectText>Primeira vez? Cadastre-se!</RedirectText>
+        <RedirectText>
+          Primeira vez? Cadastre-se!
+        </RedirectText>
       </Link>
     </PageHolder>
   );
