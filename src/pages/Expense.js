@@ -23,7 +23,7 @@ export default function Expense () {
 
   return (
     <>
-      <Header pageTitle="Nova saída" hasIcon={false} margin="40px" />
+      <Header pageTitle="Nova saída" hasLogOutIcon={false} margin="40px" />
       <form onSubmit={addIncome}>
         <Input
           placeholder="Valor"

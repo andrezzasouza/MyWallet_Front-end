@@ -12,7 +12,7 @@ export default function Home () {
     <>
       <Header
         margin="22px"
-        hasIcon={true}
+        hasLogOutIcon={true}
         pageTitle={`Olá, ${username ? username : "Fulano"}`}
       />
       <DataContainer />

@@ -14,7 +14,7 @@ export default function LowerButton ({ iconType, buttonText }) {
 const Lower = styled.button`
   font-family: "Raleway", sans-serif;
   height: 114px;
-  width: 155px;
+  width: calc(50vw - 30px);
   border-radius: 5px;
   border: none;
   display: flex;
@@ -26,7 +26,7 @@ const Lower = styled.button`
 
   p {
     color: #ffffff;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 17px;
     line-height: 20px;
     width: 46.37%;

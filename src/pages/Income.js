@@ -24,7 +24,7 @@ export default function Income () {
 
   return (
     <>
-      <Header pageTitle="Nova entrada" hasIcon={false} margin="40px" />
+      <Header pageTitle="Nova entrada" hasLogOutIcon={false} margin="40px" />
       <form onSubmit={addIncome}>
         <Input
           placeholder="Valor"
