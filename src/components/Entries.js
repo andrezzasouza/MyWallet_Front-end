@@ -1,13 +1,28 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import dayjs from "dayjs";
 
-export default function Entries ({ name, price, date}) {
+export default function Entries ({ date, description, value, type}) {
+
+  var currencyConfig = {
+    style: "decimal",
+    useGrouping: false,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    minimumIntegerDigits: 1,
+    currency: "BRL",
+  };
+
+  let displayValue = Number(value).toLocaleString("pt-BR", currencyConfig);
+
   return (
     <EntriesContainer>
       <Description>
-        <p>30/11</p>
-        <p>Almoço mãe</p>
+        <p>{dayjs(date).format("DD/MM")}</p>
+        <p>{description}</p>
       </Description>
-      <Price type="expense">39,90</Price>
+      <Price type={type}>
+        {displayValue}
+      </Price>
     </EntriesContainer>
   );
 }
@@ -16,7 +31,7 @@ const EntriesContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 16px 0;
+  margin: 0 0 18.5px 0;
 `
 
 const Description = styled.div`

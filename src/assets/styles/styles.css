@@ -9,3 +9,7 @@ body {
   font-family: 'Raleway', sans-serif;
   padding: 25px 24px 16px 25px;
 }
+
+button {
+  cursor: pointer;
+}

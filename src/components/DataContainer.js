@@ -2,17 +2,24 @@ import styled from "styled-components";
 import Entries from "./Entries";
 import Balance from "./Balance";
 
-export default function DataContainer () {
+export default function DataContainer ({ entries }) {
 
-  const hasEntries = true;
+  const hasEntries = entries?.length > 0;
 
   return (
     <DataHolder hasEntries={hasEntries}>
       {hasEntries ? (
         <EntriesHolder>
           <div>
-            <Entries />
-            <Entries />
+            {entries.map((entry, index) =>
+              <Entries
+                date={entry.date}
+                description={entry.description}
+                value={entry.value}
+                type={entry.type}
+                key={index}
+              />
+            )}
           </div>
           <Balance />
         </EntriesHolder>
@@ -40,6 +47,14 @@ const NoEntries = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  p {
+    width: 180px;
+    text-align: center;
+    color: #868686;
+    font-size: 20px;
+    line-height: 23px;
+  }
 `;
 
 const EntriesHolder = styled.div`
@@ -47,4 +62,15 @@ const EntriesHolder = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
+  // ver como pegar só essa
+  div:first-child {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  div:first-child::-webkit-scrollbar {
+    display: none;
+  }
 `;

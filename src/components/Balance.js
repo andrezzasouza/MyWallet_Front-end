@@ -12,9 +12,10 @@ export default function Balance () {
 const BalanceContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   font-size: 17px;
   line-height: 20px;
+  margin: 10px 0 0;
   color: ${(props) => (props.type === "positive" ? "#03AC00" : "#C70000")};
 
   p:first-child {

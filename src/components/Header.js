@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { VscSignOut } from 'react-icons/vsc';
 import { TiArrowBackOutline } from 'react-icons/ti';
 
+import Exit from "./Exit";
 
 export default function Header ({pageTitle, hasLogOutIcon, margin}) {
   return (
@@ -19,7 +19,7 @@ export default function Header ({pageTitle, hasLogOutIcon, margin}) {
   );
 }
 
-// turn Exit into a component to add functions to it? What about Back?
+// turn Back into a component to add functions to it?
 
 const AppHeader = styled.header`
   display: flex;
@@ -35,12 +35,8 @@ const AppHeader = styled.header`
   }
 `;
 
-const Exit = styled(VscSignOut)`
-  font-size: 28.55px;
-  color: #ffffff;
-`;
-
 const Back = styled(TiArrowBackOutline)`
   font-size: 28.55px;
   color: #ffffff;
+  cursor: pointer;
 `;

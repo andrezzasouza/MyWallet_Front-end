@@ -18,15 +18,40 @@ export default function SignUp () {
   const [enabled, setEnabled] = useState(true);
 
   function logIntoAccount (e) {
-    setEnabled(false);
     e.preventDefault();
-    // validate if passwords are the same?
-    // axios route
-    // if success
-    history.push("/");
-    // else
-    // error alert
-    setEnabled(true);
+    setEnabled(false);
+  
+    const body = {
+      name,
+      email,
+      password,
+      repeatPassword
+    }
+
+    const promise = axios.post('http://localhost:4000/sign-up', body);
+
+    promise.then(() => {
+      alert("Conta criada com sucesso. Agora é só fazer o login!")
+      setName("");
+      setEmail("");
+      setPassword("");
+      setRepeatPassword("");
+      history.push("/");
+    })
+    .catch((res) => {
+      console.log(res);
+      if(res.response.status === 400) {
+        alert("Dados inválidos. Verifique-os e tente novamente.");
+        // indicar qual dado está errado?
+      } else if (res.response.status === 409) {
+        alert("Você já tem uma conta. Clique no link abaixo para fazer seu login.");
+      } else if (res.response.status === 500) {
+        alert("Não foi possível cadastrar seus dados. Tente novamente.");
+      } else {
+        alert("Algo deu errado. Tente novamente.");
+      }
+      setEnabled(true);
+    });
   }
 
   return (
