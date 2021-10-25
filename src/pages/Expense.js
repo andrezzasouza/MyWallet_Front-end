@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from "styled-components";
 import API from "../services/api/api";
 
+import PopModal from '../components/Modal';
 import { Input } from '../assets/SharedStyles/Input';
 import LongerButton from '../components/LongButton';
 import Header from "../components/Header";
@@ -14,6 +15,11 @@ export default function Expense () {
   const [description, setDescription] = useState("");
   const [enabled, setEnabled] = useState(true);
   const history = useHistory();
+  const [showModal, setShowModal] = useState(false);
+  const [header, setHeader] = useState("");
+  const [message, setMessage] = useState("");
+  const [buttons, setButtons] = useState(1);
+  const [redirect, setRedirect] = useState(false);
 
   if (!localStorage.getItem("loginData")) {
     history.push("/");
@@ -45,15 +51,29 @@ export default function Expense () {
       .catch((res) => {
         let error = res.response.status;
         if (error === 400) {
-          alert("Dados inválidos. Verifique-os e tente novamente.");
+          setHeader("Algo deu errado!");
+          setMessage("Dados inválidos. Verifique-os e tente novamente.");
+          setButtons(1);
+          setRedirect(false);
+          setShowModal(true);
         } else if (error === 401) {
-          alert("Acesso negado. Tente novamente.");
+          setHeader("Algo deu errado!");
+          setMessage("Acesso negado. Faça seu login novamente.");
+          setButtons(1);
+          setRedirect(false);
+          setShowModal(true);
         } else if (error === 500) {
-          alert(
-            "Não foi possível acessar a base de dados. Tente novamente."
-          );
+          setHeader("Algo deu errado!");
+          setMessage("Não foi possível acessar a base de dados. Tente novamente.");
+          setButtons(1);
+          setRedirect(false);
+          setShowModal(true);
         } else {
-          alert("Algo deu errado. Tente novamente.");
+          setHeader("Algo deu errado!");
+          setMessage("Algo deu errado. Tente novamente.");
+          setButtons(1);
+          setRedirect(false);
+          setShowModal(true);
         }
         setEnabled(true);
       });
@@ -94,6 +114,20 @@ export default function Expense () {
           text={"Salvar saída"}
         />
       </form>
+      {showModal ? (
+        <>
+          <PopModal
+            header={header}
+            message={message}
+            buttons={buttons}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            redirect={redirect}
+          />
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }

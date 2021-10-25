@@ -53,9 +53,17 @@ export default function Login () {
         setRedirect(false);
         setShowModal(true);
       } else if (error === 404) {
-        alert("Você ainda não tem uma conta com esse e-mail. Clique no link abaixo para fazer seu cadastro ou entre com outro e-mail.");
+        setHeader("Algo deu errado!");
+        setMessage("Você ainda não tem uma conta com esse e-mail. Clique no link abaixo para fazer seu cadastro ou entre com outro e-mail.");
+        setButtons(1);
+        setRedirect(false);
+        setShowModal(true);
       } else if (error === 401) {
-        alert("Combinação email e senha incorreta. Verifique os dados e tente novamente.")
+        setHeader("Algo deu errado!");
+        setMessage("Combinação email e senha incorreta. Verifique os dados e tente novamente.");
+        setButtons(1);
+        setRedirect(false);
+        setShowModal(true);
       } else if (error === 500) {
         setHeader("Algo deu errado!");
         setMessage("Não foi possível acessar a base de dados. Tente novamente.");
