@@ -108,10 +108,8 @@ export default function SignUp () {
           )}
         </LongButton>
       </form>
-      <Link to="">
-        <RedirectText>
-          Já tem uma conta? Entre agora!
-        </RedirectText>
+      <Link to={enabled ? "/" : "/sign-up"}>
+        <RedirectText>Já tem uma conta? Entre agora!</RedirectText>
       </Link>
     </PageHolder>
   );

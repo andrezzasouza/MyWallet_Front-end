@@ -30,8 +30,7 @@ export default function Entries ({ date, description, value, type}) {
 const EntriesContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 0 0 18.5px 0;
+  margin: 0 0 18.2px 0;
 `
 
 const Description = styled.div`

@@ -5,12 +5,13 @@ import Balance from "./Balance";
 export default function DataContainer ({ entries }) {
 
   const hasEntries = entries?.length > 0;
+  console.log("en", entries);
 
   return (
     <DataHolder hasEntries={hasEntries}>
       {hasEntries ? (
         <EntriesHolder>
-          <div>
+          <ScrollableContainer>
             {entries.map((entry, index) =>
               <Entries
                 date={entry.date}
@@ -20,8 +21,10 @@ export default function DataContainer ({ entries }) {
                 key={index}
               />
             )}
-          </div>
-          <Balance />
+          </ScrollableContainer>
+          <Balance
+            balance={entries[0]?.balance}
+           />
         </EntriesHolder>
       ) : (
         <NoEntries>
@@ -42,7 +45,7 @@ const DataHolder = styled.main`
   padding: 23px 11px 10px 12px;
 `;
 
-const NoEntries = styled.main`
+const NoEntries = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -62,15 +65,14 @@ const EntriesHolder = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+`;
 
-  // ver como pegar só essa
-  div:first-child {
-    overflow-y: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
+const ScrollableContainer = styled.div`
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-  div:first-child::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
   }
 `;

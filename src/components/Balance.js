@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export default function Balance () {
+export default function Balance ({ balance }) {
   return (
     <BalanceContainer type="positive">
       <p>SALDO</p>
-      <p type="positive">2500,00</p>
+      <p>{balance ? balance : '0,00'}</p>
     </BalanceContainer>
   );
 }

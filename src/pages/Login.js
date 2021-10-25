@@ -98,7 +98,7 @@ export default function Login () {
           )}
         </LongButton>
       </form>
-      <Link to="/sign-up">
+      <Link to={enabled ? "/sign-up" : "/"}>
         <RedirectText>
           Primeira vez? Cadastre-se!
         </RedirectText>

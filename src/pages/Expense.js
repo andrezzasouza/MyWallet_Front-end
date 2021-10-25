@@ -14,6 +14,9 @@ export default function Expense () {
   const history = useHistory();
   const { userData } = useContext(UserContext);
 
+  // console.log("uD", userData);
+  // console.log("json", JSON.parse(localStorage.getItem("loginData")));
+
   useEffect(() => {
   if (!userData.token) {
     history.push("/");
