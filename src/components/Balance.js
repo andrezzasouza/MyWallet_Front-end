@@ -12,7 +12,7 @@ export default function Balance ({ balance }) {
   };
 
   const formatBalance = (balance / 100).toLocaleString("pt-BR", currencyConfig);
-  const valueType = balance > 0;
+  let valueType = balance > 0;
 
   return (
     <BalanceContainer type={valueType}>

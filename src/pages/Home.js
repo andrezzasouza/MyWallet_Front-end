@@ -12,7 +12,7 @@ export default function Home () {
 
   const history = useHistory();
   const { userData } = useContext(UserContext);
-  const username = userData.name;
+  const username = (userData.name)?.split(" ")[0];
   const [ entries, setEntries ] = useState();
 
   useEffect(() => {

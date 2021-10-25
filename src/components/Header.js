@@ -26,12 +26,16 @@ const AppHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   margin-bottom: ${(props) => props.margin};
-  
+
   h1 {
     font-weight: 700;
     font-size: 26px;
     line-height: 31px;
     color: #ffffff;
+    max-width: calc(100% - 35px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 

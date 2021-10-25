@@ -16,17 +16,17 @@ export default function Expense () {
   const [description, setDescription] = useState("");
   const [enabled, setEnabled] = useState(true);
   const history = useHistory();
-  const { userData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
   // console.log("uD", userData);
   // console.log("json", JSON.parse(localStorage.getItem("loginData")));
 
   // useEffect(() => {
   //   setUserData(JSON.parse(localStorage.getItem("loginData")));
-  // }, []);
+  // }, [userData]);
 
   useEffect(() => {
-    if (!userData.token) {
+    if (!userData?.token) {
       history.push("/");
     }
   }, [userData, history]);
