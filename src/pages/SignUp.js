@@ -52,7 +52,7 @@ export default function SignUp () {
     })
     .catch((res) => {
       let error = res.response.status;
-      console.log(res.response);
+
       if(error === 400) {
         setHeader("Algo deu errado!");
         setMessage("Dados inválidos. Verifique-os e tente novamente.");
