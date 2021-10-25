@@ -166,4 +166,9 @@ const PageHolder = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  form {
+    max-width: 540px;
+    margin: 0 auto;
+  }
 `;

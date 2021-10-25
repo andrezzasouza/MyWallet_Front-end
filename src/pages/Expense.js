@@ -82,7 +82,7 @@ export default function Expense () {
   return (
     <>
       <Header pageTitle="Nova saída" hasLogOutIcon={false} margin="40px" />
-      <form onSubmit={addExpense}>
+      <Form onSubmit={addExpense}>
         <MoneyInput
           placeholder="Valor"
           thousandSeparator={false}
@@ -113,7 +113,7 @@ export default function Expense () {
           clickable={enabled}
           text={"Salvar saída"}
         />
-      </form>
+      </Form>
       {showModal ? (
         <>
           <PopModal
@@ -131,6 +131,11 @@ export default function Expense () {
     </>
   );
 }
+
+const Form = styled.form`
+  max-width: 540px;
+  margin: 0 auto;
+`;
 
 const MoneyInput = styled(NumberFormat)`
   font-family: "Raleway", sans-serif;

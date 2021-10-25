@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 const Modal = styled.div`
   position: fixed;
-  top: calc((100vh - 262px) / 2);
+  top: calc((100vh - 200px) / 2);
   left: calc((100vw - 597px) / 2);
-  height: 262px;
+  height: 200px;
   width: 597px;
   background-color: #550a73;
   color: #ffffff;

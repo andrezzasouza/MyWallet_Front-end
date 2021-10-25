@@ -83,7 +83,7 @@ export default function Income () {
   return (
     <>
       <Header pageTitle="Nova entrada" hasLogOutIcon={false} margin="40px" />
-      <form onSubmit={addIncome}>
+      <Form onSubmit={addIncome}>
         <MoneyInput
           placeholder="Valor"
           thousandSeparator={false}
@@ -114,7 +114,7 @@ export default function Income () {
           clickable={enabled}
           text={"Salvar entrada"}
         />
-      </form>
+      </Form>
       {showModal ? (
         <>
           <PopModal
@@ -132,6 +132,11 @@ export default function Income () {
     </>
   );
 }
+
+const Form = styled.form`
+  max-width: 540px;
+  margin: 0 auto;
+`
 
 const MoneyInput = styled(NumberFormat)`
   font-family: "Raleway", sans-serif;
