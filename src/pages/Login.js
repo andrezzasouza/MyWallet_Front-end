@@ -1,5 +1,5 @@
 import {Input} from "../assets/SharedStyles/Input";
-import {LongButton} from "../assets/SharedStyles/LongButton";
+import LongerButton from "../components/LongButton";
 import Logo from "../components/Logo";
 import Loader from "react-loader-spinner";
 import UserContext from "../contexts/UserContext";
@@ -17,7 +17,7 @@ export default function Login () {
   const [enabled, setEnabled] = useState(true);
   const { setUserData, userData } = useContext(UserContext);
 
-  if (!localStorage.getItem("loginData")) {
+  if (localStorage.getItem("loginData")) {
     history.push("/home");
   }
 
@@ -82,19 +82,13 @@ export default function Login () {
           disabled={!enabled}
           required
         />
-        <LongButton type="submit" margin="36px" clickable={enabled}>
-          {enabled ? (
-            "Entrar"
-          ) : (
-            <Loader
-              type="ThreeDots"
-              color="white"
-              height={50}
-              width={100}
-              timeout={3000}
-            />
-          )}
-        </LongButton>
+        <LongerButton
+          type={"submit"}
+          margin={"36px"}
+          enabled={enabled}
+          clickable={enabled}
+          text="Entrar"
+        />
       </form>
       <Link to={enabled ? "/sign-up" : "/"}>
         <RedirectText>Primeira vez? Cadastre-se!</RedirectText>

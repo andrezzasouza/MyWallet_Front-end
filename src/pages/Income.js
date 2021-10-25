@@ -1,14 +1,13 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
+import LongerButton from '../components/LongButton';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import styled from 'styled-components';
 
 import { Input } from '../assets/SharedStyles/Input';
-import { LongButton } from '../assets/SharedStyles/LongButton';
 
 import Header from '../components/Header';
 import UserContext from "../contexts/UserContext";
-import Loader from 'react-loader-spinner';
 import NumberFormat from "react-number-format";
 
 
@@ -17,7 +16,7 @@ export default function Income () {
   const [description, setDescription] = useState("");
   const [enabled, setEnabled] = useState(true);
   const history = useHistory();
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   if (!localStorage.getItem("loginData")) {
     history.push("/");
@@ -49,7 +48,7 @@ export default function Income () {
         if (error === 400) {
           alert("Dados inválidos. Verifique-os e tente novamente.");
         } else if (error === 401) {
-          // there are 2 cases here
+          alert("Acesso negado. Tente novamente.");
         } else if (error === 500) {
           alert("Não foi possível acessar a base de dados. Tente novamente.");
         } else {
@@ -63,16 +62,6 @@ export default function Income () {
     <>
       <Header pageTitle="Nova entrada" hasLogOutIcon={false} margin="40px" />
       <form onSubmit={addIncome}>
-        {/* <Input
-          step="0.01"
-          placeholder="Valor"
-          type="number"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          clickable={enabled}
-          disabled={!enabled}
-          required
-        /> */}
         <MoneyInput
           placeholder="Valor"
           thousandSeparator={false}
@@ -96,19 +85,13 @@ export default function Income () {
           disabled={!enabled}
           required
         />
-        <LongButton type="submit" margin="36px" clickable={enabled}>
-          {enabled ? (
-            "Salvar entrada"
-          ) : (
-            <Loader
-              type="ThreeDots"
-              color="white"
-              height={50}
-              width={100}
-              timeout={3000}
-            />
-          )}
-        </LongButton>
+        <LongerButton
+          type={"submit"}
+          margin={"36px"}
+          enabled={enabled}
+          clickable={enabled}
+          text={"Salvar entrada"}
+        />
       </form>
     </>
   );

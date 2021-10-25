@@ -34,14 +34,14 @@ export default function Home () {
     .catch((res) => {
       let error = res.response.status
       if (error === 401) {
-        // decide on a message later
+        alert("Acesso negado. Tente novamente.");
       } else if (error === 500) {
         alert("Não foi possível acessar a base de dados. Tente novamente.");
       } else {
         alert("Algo deu errado. Tente novamente.");
       }
     })
-  }, []);
+  }, [userData]);
 
   console.log("4", entries);
 

@@ -1,12 +1,11 @@
 import {Input} from "../assets/SharedStyles/Input";
-import {LongButton} from "../assets/SharedStyles/LongButton";
-import { Modal, ModalBackground, ModalButtons, TopSection } from "../assets/SharedStyles/Modal";
+import LongerButton from "../components/LongButton";
+import PopModal from "../components/Modal";
 import Logo from "../components/Logo";
-import Loader from "react-loader-spinner";
 
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 export default function SignUp () {
@@ -18,39 +17,10 @@ export default function SignUp () {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [enabled, setEnabled] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const modalRef = useRef();
 
-   if (!localStorage.getItem("loginData")) {
-     history.push("/home");
-   }
-
-  function redirect() {
-    history.push("/");
+  if (localStorage.getItem("loginData")) {
+    history.push("/home");
   }
-
-  function closeModal(e) {
-    if (modalRef.current === e.target) {
-      setShowModal(false);
-    }
-    redirect();
-  }
-
-  const modalKeyEvents = useCallback(
-    (e) => {
-      if (e.key === "Escape" && showModal === true) {
-        setShowModal(false);
-        redirect();
-      }
-    },
-    [setShowModal, showModal]
-  );
-
-  useEffect(() => {
-    document.addEventListener("keydown", modalKeyEvents);
-  }, [modalKeyEvents]);
-
-  // remove listener after use
-
 
   function logIntoAccount (e) {
     e.preventDefault();
@@ -67,17 +37,14 @@ export default function SignUp () {
 
     promise.then(() => {
       setShowModal(true);
-      // alert("Conta criada com sucesso. Agora é só fazer o login!")
       setName("");
       setEmail("");
       setPassword("");
       setRepeatPassword("");
-      
-      // history.push("/");
     })
     .catch((res) => {
       let error = res.response.status;
-      console.log(res);
+      console.log(res.response);
       if(error === 400) {
         alert("Dados inválidos. Verifique-os e tente novamente.");
       } else if (error === 409) {
@@ -131,43 +98,26 @@ export default function SignUp () {
           disabled={!enabled}
           required
         />
-        <LongButton type="submit" margin="32px" clickable={enabled}>
-          {enabled ? (
-            "Cadastrar"
-          ) : (
-            <Loader
-              type="ThreeDots"
-              color="white"
-              height={50}
-              width={100}
-              timeout={3000}
-            />
-          )}
-        </LongButton>
+        <LongerButton
+          type={"submit"}
+          margin={"32px"}
+          enabled={enabled}
+          clickable={enabled}
+          text={"Cadastrar"}
+        />
       </form>
       <Link to={enabled ? "/" : "/sign-up"}>
         <RedirectText>Já tem uma conta? Entre agora!</RedirectText>
       </Link>
       {showModal ? (
         <>
-          <ModalBackground
-            ref={modalRef}
-            onClick={closeModal}
-          ></ModalBackground>
-          <Modal>
-            <TopSection>
-              <h2>Sua jornada começou!</h2>
-            </TopSection>
-            <h3>Conta criada com sucesso! Agora é so fazer o login!</h3>
-            <ModalButtons>
-              <button
-                className="second"
-                onClick={closeModal}
-              >
-                Ok!
-              </button>
-            </ModalButtons>
-          </Modal>
+          <PopModal
+            header={"Sua jornada começou!"}
+            message={"Conta criada com sucesso! Agora é so fazer o login!"}
+            buttons={1}
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
         </>
       ) : (
         ""
