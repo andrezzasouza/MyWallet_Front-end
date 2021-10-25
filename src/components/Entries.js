@@ -46,6 +46,8 @@ const Description = styled.div`
 
   p:last-child {
     margin: 0 0 0 4px;
+    word-break: break-all;
+    padding: 0 5px 0 0;
   }
 `;
 

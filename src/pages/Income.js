@@ -19,18 +19,9 @@ export default function Income () {
   const history = useHistory();
   const { userData, setUserData } = useContext(UserContext);
 
-  // console.log("uD", userData);
-  // console.log("json", JSON.parse(localStorage.getItem("loginData")));
-
-  // useEffect(() => {
-  //   setUserData(JSON.parse(localStorage.getItem("loginData")));
-  // }, []);
-
-  useEffect(() => {
-    if (!userData.token) {
-      history.push("/");
-    }
-  }, [userData, history]);
+  if (!localStorage.getItem("loginData")) {
+    history.push("/");
+  }
 
   function addIncome(e) {
     setEnabled(false);
@@ -44,7 +35,7 @@ export default function Income () {
       type: "income",
     };
 
-    const token = `Bearer ${userData.token}`;
+    const token = `Bearer ${userData?.token}`;
     const promise = axios.post("http://localhost:4000/entry", body, {
       headers: { Authorization: token },
     });
@@ -54,14 +45,13 @@ export default function Income () {
         history.push("/home");
       })
       .catch((res) => {
-        if (res.response.status === 400) {
+        let error = res.response.status;
+        if (error === 400) {
           alert("Dados inválidos. Verifique-os e tente novamente.");
-        } else if (res.response.status === 401) {
+        } else if (error === 401) {
           // there are 2 cases here
-        } else if (res.response.status === 500) {
-          alert(
-            "Não foi possível pegar os dados da sua conta. Tente novamente."
-          );
+        } else if (error === 500) {
+          alert("Não foi possível acessar a base de dados. Tente novamente.");
         } else {
           alert("Algo deu errado. Tente novamente.");
         }

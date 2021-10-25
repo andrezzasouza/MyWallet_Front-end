@@ -17,12 +17,9 @@ export default function Login () {
   const [enabled, setEnabled] = useState(true);
   const { setUserData, userData } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(userData.token);
-    if (userData.token) {
-      history.push("/home");
-    }
-  }, [userData, history]);
+  if (!localStorage.getItem("loginData")) {
+    history.push("/home");
+  }
 
   function logIntoAccount (e) {
     setEnabled(false);
@@ -47,14 +44,15 @@ export default function Login () {
     // setEnabled(true) aqui também?
     })
     .catch((res) => {
-      if (res.response.status === 400) {
+      let error = res.response.status;
+      if (error === 400) {
         alert("Dados inválidos. Verifique-os e tente novamente.");
-      } else if (res.response.status === 404) {
+      } else if (error === 404) {
         alert("Você ainda não tem uma conta com esse e-mail. Clique no link abaixo para fazer seu cadastro ou entre com outro e-mail.");
-      } else if (res.response.status === 401) {
+      } else if (error === 401) {
         alert("Combinação email e senha incorreta. Verifique os dados e tente novamente.")
-      } else if (res.response.status === 500) {
-        alert("Não foi possível pegar os dados da sua conta. Tente novamente.");
+      } else if (error === 500) {
+        alert("Não foi possível acessar a base de dados. Tente novamente.");
       } else {
         alert("Algo deu errado. Tente novamente.");
       }
