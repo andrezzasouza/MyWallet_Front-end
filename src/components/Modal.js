@@ -7,10 +7,6 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
   const history = useHistory();
   const modalRef = useRef();
 
-  if (localStorage.getItem("loginData")) {
-    history.push("/home");
-  }
-
   function toRedirect() {
     if (redirect) {
       history.push("/");
