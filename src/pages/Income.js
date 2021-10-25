@@ -1,13 +1,12 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import LongerButton from '../components/LongButton';
 import { useHistory } from 'react-router-dom';
-import axios from "axios";
 import styled from 'styled-components';
+import API from "../services/api/api"
 
 import { Input } from '../assets/SharedStyles/Input';
 
 import Header from '../components/Header';
-import UserContext from "../contexts/UserContext";
 import NumberFormat from "react-number-format";
 
 
@@ -16,11 +15,12 @@ export default function Income () {
   const [description, setDescription] = useState("");
   const [enabled, setEnabled] = useState(true);
   const history = useHistory();
-  const { userData } = useContext(UserContext);
 
   if (!localStorage.getItem("loginData")) {
     history.push("/");
   }
+
+  const jsonToken = JSON.parse(localStorage.getItem("loginData"));
 
   function addIncome(e) {
     setEnabled(false);
@@ -33,9 +33,9 @@ export default function Income () {
       value: formatValue,
       type: "income",
     };
-
-    const token = `Bearer ${userData?.token}`;
-    const promise = axios.post("http://localhost:4000/entry", body, {
+    
+    const token = `Bearer ${jsonToken?.token}`;
+    const promise = API.post("/entry", body, {
       headers: { Authorization: token },
     });
 

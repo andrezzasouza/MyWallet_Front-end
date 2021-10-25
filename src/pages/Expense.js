@@ -1,8 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import UserContext from "../contexts/UserContext";
-import axios from "axios";
 import styled from "styled-components";
+import API from "../services/api/api";
 
 import { Input } from '../assets/SharedStyles/Input';
 import LongerButton from '../components/LongButton';
@@ -15,11 +14,12 @@ export default function Expense () {
   const [description, setDescription] = useState("");
   const [enabled, setEnabled] = useState(true);
   const history = useHistory();
-  const { userData } = useContext(UserContext);
 
   if (!localStorage.getItem("loginData")) {
     history.push("/");
   }
+
+  const jsonToken = JSON.parse(localStorage.getItem("loginData"));
 
   function addExpense(e) {
     setEnabled(false);
@@ -33,8 +33,8 @@ export default function Expense () {
       type: "expense",
     };
 
-    const token = `Bearer ${userData?.token}`;
-    const promise = axios.post("http://localhost:4000/entry", body, {
+    const token = `Bearer ${jsonToken?.token}`;
+    const promise = API.post("/entry", body, {
       headers: { Authorization: token },
     });
 

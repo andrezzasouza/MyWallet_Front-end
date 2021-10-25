@@ -6,7 +6,7 @@ import Logo from "../components/Logo";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import API from "../services/api/api";
 
 export default function SignUp () {
 
@@ -33,7 +33,7 @@ export default function SignUp () {
       repeatPassword
     }
 
-    const promise = axios.post('http://localhost:4000/sign-up', body);
+    const promise = API.post("/sign-up", body);
 
     promise.then(() => {
       setShowModal(true);

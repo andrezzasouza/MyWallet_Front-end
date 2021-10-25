@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import API from '../services/api/api'
 
 import Header from '../components/Header';
 import LowerButton from '../components/LowerButton';
@@ -15,21 +15,19 @@ export default function Home () {
   const username = (userData.name)?.split(" ")[0];
   const [ entries, setEntries ] = useState();
 
+  const jsonToken = JSON.parse(localStorage.getItem("loginData"));
+
   if (!localStorage.getItem("loginData")) {
     history.push("/");
   }
 
   useEffect(() => {
-    const token = `Bearer ${userData?.token}`;
-    console.log(token);
-    const promise = axios.get("http://localhost:4000/home", {
+    const token = `Bearer ${jsonToken?.token}`;
+    const promise = API.get("/home", {
       headers: { Authorization: token }
     });
-    console.log(token)
     promise.then((res) => {
-      console.log(res);
       setEntries(res.data);
-      console.log("3", entries);
     })
     .catch((res) => {
       let error = res.response.status
@@ -43,8 +41,6 @@ export default function Home () {
     })
   }, [userData]);
 
-  console.log("4", entries);
-
   return (
     <>
       <Header
@@ -52,7 +48,6 @@ export default function Home () {
         hasLogOutIcon={true}
         pageTitle={`Olá, ${username ? username : "Fulano"}`}
       />
-      {console.log("1", entries)}
       <DataContainer entries={entries} />
       <ButtonHolder>
         <Link to="/income">
@@ -70,5 +65,4 @@ const ButtonHolder = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  // should this be a footer?
 `

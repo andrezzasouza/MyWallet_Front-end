@@ -77,7 +77,8 @@ const ModalButtons = styled.div`
     font-weight: bold;
     font-size: 18px;
     line-height: 22px;
-    color: #1877f2;
+    background-color: #550a73;
+    color: #ffffff;
     cursor: pointer;
     @media (max-width: 400px) {
       width: 100px;

@@ -1,13 +1,12 @@
 import {Input} from "../assets/SharedStyles/Input";
 import LongerButton from "../components/LongButton";
 import Logo from "../components/Logo";
-import Loader from "react-loader-spinner";
 import UserContext from "../contexts/UserContext";
 
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import { useState, useContext, useEffect } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
+import API from "../services/api/api";
 
 export default function Login () {
 
@@ -15,7 +14,7 @@ export default function Login () {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [enabled, setEnabled] = useState(true);
-  const { setUserData, userData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   if (localStorage.getItem("loginData")) {
     history.push("/home");
@@ -30,18 +29,14 @@ export default function Login () {
       password
     }
 
-    const promise = axios.post('http://localhost:4000/login', body);
+    const promise = API.post("/login", body);
 
     promise.then((res) => {
-    setEmail("");
-    setPassword("");
-
-    setUserData(res.data);
-    console.log(res.data);
-    localStorage.setItem("loginData", JSON.stringify(res.data));
-
-    history.push("/home");
-    // setEnabled(true) aqui também?
+      setEmail("");
+      setPassword("");
+      setUserData(res.data);
+      localStorage.setItem("loginData", JSON.stringify(res.data));
+      history.push("/home");
     })
     .catch((res) => {
       let error = res.response.status;

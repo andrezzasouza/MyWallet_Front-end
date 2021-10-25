@@ -12,10 +12,10 @@ export default function Balance ({ balance }) {
   };
 
   const formatBalance = (balance / 100).toLocaleString("pt-BR", currencyConfig);
-  let valueType = balance > 0;
+  let positive = balance > 0;
 
   return (
-    <BalanceContainer type={valueType}>
+    <BalanceContainer positive={positive}>
       <p>SALDO</p>
       <p>{balance ? formatBalance : '0,00'}</p>
     </BalanceContainer>
@@ -29,7 +29,7 @@ const BalanceContainer = styled.div`
   font-size: 17px;
   line-height: 20px;
   margin: 10px 0 0;
-  color: ${(props) => (props.type ? "#03AC00" : "#C70000")};
+  color: ${(props) => (props.positive ? "#03AC00" : "#C70000")};
 
   p:first-child {
     font-weight: bold;
@@ -40,5 +40,4 @@ const BalanceContainer = styled.div`
   p:last-child {
     text-align: right;
   }
-  // should this be a footer?
 `;
