@@ -34,7 +34,7 @@ const TopSection = styled.div`
   padding: 20px 0 15px;
   width: 100%;
   h2 {
-    width: 350px;
+    width: 500px;
     font-weight: bold;
     font-size: 34px;
     line-height: 41px;
@@ -48,6 +48,7 @@ const TopSection = styled.div`
   }
   @media (max-width: 611px) {
     h2 {
+      width: 350px;
       font-size: 26px;
       line-height: 30px;
     }
