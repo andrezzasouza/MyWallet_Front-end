@@ -17,6 +17,9 @@ export default function SignUp () {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [enabled, setEnabled] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [header, setHeader] = useState("");
+  const [message, setMessage] = useState("");
+  const [buttons, setButtons] = useState(1);
 
   if (localStorage.getItem("loginData")) {
     history.push("/home");
@@ -36,6 +39,9 @@ export default function SignUp () {
     const promise = API.post("/sign-up", body);
 
     promise.then(() => {
+      setHeader("Sua jornada começou!");
+      setMessage("Conta criada com sucesso! Agora é so fazer o login!");
+      setButtons(1);
       setShowModal(true);
       setName("");
       setEmail("");
@@ -46,13 +52,25 @@ export default function SignUp () {
       let error = res.response.status;
       console.log(res.response);
       if(error === 400) {
-        alert("Dados inválidos. Verifique-os e tente novamente.");
+        setHeader("Algo deu errado!");
+        setMessage("Dados inválidos. Verifique-os e tente novamente.");
+        setButtons(1);
+        setShowModal(true);
       } else if (error === 409) {
-        alert("Você já tem uma conta. Clique no link abaixo para fazer seu login.");
+        setHeader("Algo deu errado!");
+        setMessage("Você já tem uma conta. Clique no link abaixo para fazer seu login.");
+        setButtons(1);
+        setShowModal(true);
       } else if (error === 500) {
-        alert("Não foi possível acessar a base de dados. Tente novamente.");
+        setHeader("Algo deu errado!");
+        setMessage("Não foi possível acessar a base de dados. Tente novamente.");
+        setButtons(1);
+        setShowModal(true);
       } else {
-        alert("Algo deu errado. Tente novamente.");
+        setHeader("Algo deu errado!");
+        setMessage("Algo deu errado. Tente novamente.");
+        setButtons(1);
+        setShowModal(true);
       }
       setEnabled(true);
     });
@@ -112,12 +130,13 @@ export default function SignUp () {
       {showModal ? (
         <>
           <PopModal
-            header={"Sua jornada começou!"}
-            message={"Conta criada com sucesso! Agora é so fazer o login!"}
-            buttons={1}
+            header={header}
+            message={message}
+            buttons={buttons}
             showModal={showModal}
             setShowModal={setShowModal}
           />
+        
         </>
       ) : (
         ""
