@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -8,9 +9,6 @@ import { LongButton } from "../assets/SharedStyles/LongButton";
 import Header from "../components/Header";
 
 import Loader from "react-loader-spinner";
-
-import UserContext from "../contexts/UserContext";
-
 import NumberFormat from "react-number-format";
 
 export default function Expense () {
@@ -42,7 +40,7 @@ export default function Expense () {
     const body = {
       description,
       value: formatValue,
-      type: "income",
+      type: "expense",
     };
 
     const token = `Bearer ${userData.token}`;

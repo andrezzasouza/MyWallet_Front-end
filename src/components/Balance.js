@@ -2,14 +2,22 @@ import styled from "styled-components";
 
 export default function Balance ({ balance }) {
 
-  // const type = balance > 0;
-  // console.log(balance);
-  // tirar o R$
+  var currencyConfig = {
+    style: "decimal",
+    useGrouping: false,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    minimumIntegerDigits: 1,
+    currency: "BRL",
+  };
+
+  const formatBalance = (balance / 100).toLocaleString("pt-BR", currencyConfig);
+  const valueType = balance > 0;
 
   return (
-    <BalanceContainer type={true}>
+    <BalanceContainer type={valueType}>
       <p>SALDO</p>
-      <p>{balance ? balance : '0,00'}</p>
+      <p>{balance ? formatBalance : '0,00'}</p>
     </BalanceContainer>
   );
 }

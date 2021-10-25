@@ -12,7 +12,7 @@ export default function Entries ({ date, description, value, type}) {
     currency: "BRL",
   };
 
-  let displayValue = Number(value).toLocaleString("pt-BR", currencyConfig);
+  let displayValue = (value / 100).toLocaleString("pt-BR", currencyConfig);
 
   return (
     <EntriesContainer>
