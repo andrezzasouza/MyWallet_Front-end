@@ -20,6 +20,7 @@ export default function SignUp () {
   const [header, setHeader] = useState("");
   const [message, setMessage] = useState("");
   const [buttons, setButtons] = useState(1);
+  const [redirect, setRedirect] = useState(false);
 
   if (localStorage.getItem("loginData")) {
     history.push("/home");
@@ -43,6 +44,7 @@ export default function SignUp () {
       setMessage("Conta criada com sucesso! Agora é so fazer o login!");
       setButtons(1);
       setShowModal(true);
+      setRedirect(true);
       setName("");
       setEmail("");
       setPassword("");
@@ -55,21 +57,25 @@ export default function SignUp () {
         setHeader("Algo deu errado!");
         setMessage("Dados inválidos. Verifique-os e tente novamente.");
         setButtons(1);
+        setRedirect(false);
         setShowModal(true);
       } else if (error === 409) {
         setHeader("Algo deu errado!");
         setMessage("Você já tem uma conta. Clique no link abaixo para fazer seu login.");
         setButtons(1);
+        setRedirect(false);
         setShowModal(true);
       } else if (error === 500) {
         setHeader("Algo deu errado!");
         setMessage("Não foi possível acessar a base de dados. Tente novamente.");
         setButtons(1);
+        setRedirect(false);
         setShowModal(true);
       } else {
         setHeader("Algo deu errado!");
         setMessage("Algo deu errado. Tente novamente.");
         setButtons(1);
+        setRedirect(false);
         setShowModal(true);
       }
       setEnabled(true);
@@ -135,8 +141,8 @@ export default function SignUp () {
             buttons={buttons}
             showModal={showModal}
             setShowModal={setShowModal}
+            redirect={redirect}
           />
-        
         </>
       ) : (
         ""

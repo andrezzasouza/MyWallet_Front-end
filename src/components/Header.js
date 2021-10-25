@@ -19,8 +19,6 @@ export default function Header ({pageTitle, hasLogOutIcon, margin}) {
   );
 }
 
-// turn Back into a component to add functions to it?
-
 const AppHeader = styled.header`
   display: flex;
   justify-content: space-between;

@@ -2,6 +2,7 @@ import {Input} from "../assets/SharedStyles/Input";
 import LongerButton from "../components/LongButton";
 import Logo from "../components/Logo";
 import UserContext from "../contexts/UserContext";
+import PopModal from "../components/Modal";
 
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
@@ -15,6 +16,11 @@ export default function Login () {
   const [password, setPassword] = useState("");
   const [enabled, setEnabled] = useState(true);
   const { setUserData } = useContext(UserContext);
+  const [showModal, setShowModal] = useState(false);
+  const [header, setHeader] = useState("");
+  const [message, setMessage] = useState("");
+  const [buttons, setButtons] = useState(1);
+  const [redirect, setRedirect] = useState(false);
 
   if (localStorage.getItem("loginData")) {
     history.push("/home");
@@ -41,15 +47,27 @@ export default function Login () {
     .catch((res) => {
       let error = res.response.status;
       if (error === 400) {
-        alert("Dados inválidos. Verifique-os e tente novamente.");
+        setHeader("Algo deu errado!");
+        setMessage("Dados inválidos. Verifique-os e tente novamente.");
+        setButtons(1);
+        setRedirect(false);
+        setShowModal(true);
       } else if (error === 404) {
         alert("Você ainda não tem uma conta com esse e-mail. Clique no link abaixo para fazer seu cadastro ou entre com outro e-mail.");
       } else if (error === 401) {
         alert("Combinação email e senha incorreta. Verifique os dados e tente novamente.")
       } else if (error === 500) {
-        alert("Não foi possível acessar a base de dados. Tente novamente.");
+        setHeader("Algo deu errado!");
+        setMessage("Não foi possível acessar a base de dados. Tente novamente.");
+        setButtons(1);
+        setRedirect(false);
+        setShowModal(true);
       } else {
-        alert("Algo deu errado. Tente novamente.");
+        setHeader("Algo deu errado!");
+        setMessage("Algo deu errado. Tente novamente.");
+        setButtons(1);
+        setRedirect(false);
+        setShowModal(true);
       }
       setEnabled(true);
     })
@@ -88,6 +106,20 @@ export default function Login () {
       <Link to={enabled ? "/sign-up" : "/"}>
         <RedirectText>Primeira vez? Cadastre-se!</RedirectText>
       </Link>
+      {showModal ? (
+        <>
+          <PopModal
+            header={header}
+            message={message}
+            buttons={buttons}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            redirect={redirect}
+          />
+        </>
+      ) : (
+        ""
+      )}
     </PageHolder>
   );
 }

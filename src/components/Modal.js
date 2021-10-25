@@ -2,7 +2,7 @@ import { Modal, ModalBackground, ModalButtons, TopSection } from "../assets/Shar
 import { useHistory } from "react-router-dom";
 import { useRef, useEffect, useCallback } from "react";
 
-export default function PopModal ({ message, header, buttons, showModal, setShowModal }) {
+export default function PopModal ({ message, header, buttons, showModal, setShowModal, redirect }) {
 
   const history = useHistory();
   const modalRef = useRef();
@@ -11,22 +11,26 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
     history.push("/home");
   }
 
-  function redirect() {
-    history.push("/");
+  function toRedirect() {
+    if (redirect) {
+      history.push("/");
+    }
   }
 
   function closeModal(e) {
     if (modalRef.current === e.target) {
       setShowModal(false);
-    }
-    redirect();
+    } else {
+      setShowModal(false);
+    } 
+    toRedirect();
   }
 
   const modalKeyEvents = useCallback(
     (e) => {
       if (e.key === "Escape" && showModal === true) {
         setShowModal(false);
-        redirect();
+        toRedirect();
       }
     },
     [setShowModal, showModal]
