@@ -71,7 +71,7 @@ export default function SignUp () {
           placeholder="E-mail"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value?.toLowerCase())}
           clickable={enabled}
           disabled={!enabled}
           required

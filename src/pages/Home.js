@@ -11,7 +11,7 @@ import UserContext from '../contexts/UserContext';
 export default function Home () {
 
   const history = useHistory();
-  const { setUserData, userData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const username = userData.name;
   const [ entries, setEntries ] = useState();
 

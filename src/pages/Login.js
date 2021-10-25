@@ -70,7 +70,7 @@ export default function Login () {
           placeholder="E-mail"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value?.toLowerCase())}
           clickable={enabled}
           disabled={!enabled}
           required
@@ -99,9 +99,7 @@ export default function Login () {
         </LongButton>
       </form>
       <Link to={enabled ? "/sign-up" : "/"}>
-        <RedirectText>
-          Primeira vez? Cadastre-se!
-        </RedirectText>
+        <RedirectText>Primeira vez? Cadastre-se!</RedirectText>
       </Link>
     </PageHolder>
   );

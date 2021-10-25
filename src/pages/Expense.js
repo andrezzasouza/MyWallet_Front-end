@@ -1,11 +1,17 @@
-import { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { Input } from "../assets/SharedStyles/Input";
+import { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from "axios";
+import styled from "styled-components";
+
+import { Input } from '../assets/SharedStyles/Input';
 import { LongButton } from "../assets/SharedStyles/LongButton";
 import Header from "../components/Header";
+
 import Loader from "react-loader-spinner";
-import axios from "axios";
+
 import UserContext from "../contexts/UserContext";
+
+import NumberFormat from "react-number-format";
 
 export default function Expense () {
   const [value, setValue] = useState("");
@@ -17,25 +23,30 @@ export default function Expense () {
   // console.log("uD", userData);
   // console.log("json", JSON.parse(localStorage.getItem("loginData")));
 
+  // useEffect(() => {
+  //   setUserData(JSON.parse(localStorage.getItem("loginData")));
+  // }, []);
+
   useEffect(() => {
-  if (!userData.token) {
-    history.push("/");
-  }
+    if (!userData.token) {
+      history.push("/");
+    }
   }, [userData, history]);
 
   function addExpense(e) {
     setEnabled(false);
     e.preventDefault();
 
+    const formatValue = Number(value?.replace("R$ ", "").replace(",", ""));
+
     const body = {
       description,
-      value: Number(value).toFixed(2),
-      type: "expense",
+      value: formatValue,
+      type: "income",
     };
 
-    console.log(typeof(value));
     const token = `Bearer ${userData.token}`;
-    const promise = axios.post("http://localhost:4000/income", body, {
+    const promise = axios.post("http://localhost:4000/entry", body, {
       headers: { Authorization: token },
     });
 
@@ -63,9 +74,24 @@ export default function Expense () {
     <>
       <Header pageTitle="Nova saída" hasLogOutIcon={false} margin="40px" />
       <form onSubmit={addExpense}>
-        <Input
+        {/* <Input
+          step="0.01"
           placeholder="Valor"
           type="number"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          clickable={enabled}
+          disabled={!enabled}
+          required
+        /> */}
+        <MoneyInput
+          placeholder="Valor"
+          thousandSeparator={false}
+          prefix={"R$ "}
+          allowNegative={false}
+          decimalScale={2}
+          fixedDecimalScale={true}
+          decimalSeparator=","
           value={value}
           onChange={(e) => setValue(e.target.value)}
           clickable={enabled}
@@ -98,3 +124,21 @@ export default function Expense () {
     </>
   );
 }
+
+const MoneyInput = styled(NumberFormat)`
+  font-family: "Raleway", sans-serif;
+  width: 100%;
+  height: 58px;
+  border: none;
+  border-radius: 5px;
+  padding: 18px 15px 17px;
+  font-size: 20px;
+  line-height: 23px;
+  margin: 0 0 13px;
+  background-color: ${(props) => (props.clickable ? "#FFFFFF" : "#d4d2d2")};
+  pointer-events: ${(props) => (props.clickable ? "auto" : "none")};
+
+  &::placeholder {
+    color: #000000;
+  }
+`;
