@@ -39,7 +39,7 @@ export default function Home () {
       let error = res.response.status;
       if (error === 401) {
         setHeader("Algo deu errado!");
-        setMessage("Combinação email e senha incorreta. Verifique os dados e tente novamente.");
+        setMessage("Acesso negado. Faça seu login novamente.");
         setButtons(1);
         setRedirect(false);
         setShowModal(true);
