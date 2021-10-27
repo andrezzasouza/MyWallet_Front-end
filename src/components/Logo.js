@@ -16,4 +16,10 @@ const AppName = styled.h1`
   line-height: 50px;
   color: #ffffff;
   margin-bottom: ${(props) => (props.margin)};
+
+  @media(min-width: 801px) {
+    font-size: 60px;
+    line-height: 70px;
+    margin-bottom: 40px;
+  }
 `;

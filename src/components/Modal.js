@@ -1,13 +1,23 @@
 import { Modal, ModalBackground, ModalButtons, TopSection } from "../assets/SharedStyles/Modal";
 import { useHistory } from "react-router-dom";
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 export default function PopModal ({ message, header, buttons, showModal, setShowModal, redirect }) {
 
   const history = useHistory();
   const modalRef = useRef();
+  const { setUserData } = useContext(UserContext);
+
+  function clearStorage() {
+    window.localStorage.removeItem("loginData");
+  }
 
   function toRedirect() {
+    if (header.includes("Sair")) {
+      clearStorage();
+      setUserData("");
+    }
     if (redirect) {
       history.push("/");
     }
@@ -20,6 +30,14 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
       setShowModal(false);
     } 
     toRedirect();
+  }
+
+  function cancelAction (e) {
+    if (modalRef.current === e.target) {
+      setShowModal(false);
+    } else {
+      setShowModal(false);
+    } 
   }
 
   const modalKeyEvents = useCallback(
@@ -56,16 +74,14 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
         ) : (
           <>
             <ModalButtons>
-              <button onClick={closeModal}>
+              <button onClick={cancelAction}>
                 Cancelar!
               </button>
+              <button className="second" onClick={closeModal}>
+                Sim!
+              </button>
             </ModalButtons>
-            <ModalButtons>
-            <button className="second" onClick={closeModal}>
-              Sim!
-            </button>
-          </ModalButtons>
-        </>
+          </>
         )}
       </Modal>
     </>

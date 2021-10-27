@@ -21,7 +21,7 @@ export default function Exit () {
   }
 
   return(
-    <ExitButton onClick={logOut} />
+    <ExitButton />
   );
 }
 
