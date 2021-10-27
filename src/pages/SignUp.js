@@ -53,9 +53,22 @@ export default function SignUp () {
     .catch((res) => {
       let error = res.response.status;
 
+      let serverMessage = res.response?.data.message;
+      let displayMessage = "Dados inválidos.";
+
+      if (serverMessage.includes("email")) {
+        displayMessage = "E-mail inválido.";
+      } else if (serverMessage.includes("repeatPassword")) {
+        displayMessage = "A confirmação da senha deve ser igual à senha.";
+      } else if (serverMessage.includes("password")) {
+        displayMessage = "A senha deve ter pelo menos 6 caracteres.";
+      } else if (serverMessage.includes("name")) {
+        displayMessage = "O nome deve conter pelo menos 2 letras.";
+      } 
+
       if(error === 400) {
         setHeader("Algo deu errado!");
-        setMessage("Dados inválidos. Verifique-os e tente novamente.");
+        setMessage(`${displayMessage} Verifique e tente novamente.`);
         setButtons(1);
         setRedirect(false);
         setShowModal(true);

@@ -50,9 +50,19 @@ export default function Expense () {
       })
       .catch((res) => {
         let error = res.response.status;
+
+        let serverMessage = res.response?.data.message;
+        let displayMessage = "Dados inválidos.";
+
+        if (serverMessage?.includes("description")) {
+          displayMessage = "A descrição deve ter pelo menos 2 caracteres.";
+        } else if (serverMessage?.includes("value")) {
+          displayMessage = "O valor mínimo deve ser de pelo menos R$ 0,01.";
+        }
+
         if (error === 400) {
           setHeader("Algo deu errado!");
-          setMessage("Dados inválidos. Verifique-os e tente novamente.");
+          setMessage(`${displayMessage} Verifique e tente novamente.`);
           setButtons(1);
           setRedirect(false);
           setShowModal(true);

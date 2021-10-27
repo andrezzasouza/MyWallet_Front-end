@@ -46,9 +46,19 @@ export default function Login () {
     })
     .catch((res) => {
       let error = res.response.status;
+
+      let serverMessage = res.response?.data.message;
+      let displayMessage = "Dados inválidos.";
+
+      if (serverMessage.includes("email")) {
+        displayMessage = "E-mail inválido.";
+      } else if (serverMessage.includes("password")) {
+        displayMessage = "A senha deve ter pelo menos 6 caracteres.";
+      }
+
       if (error === 400) {
         setHeader("Algo deu errado!");
-        setMessage("Dados inválidos. Verifique-os e tente novamente.");
+        setMessage(`${displayMessage} Verifique e tente novamente.`);
         setButtons(1);
         setRedirect(false);
         setShowModal(true);
