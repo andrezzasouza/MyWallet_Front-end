@@ -6,7 +6,6 @@ import API from "../services/api/api"
 import PopModal from '../components/Modal';
 
 import { Input } from '../assets/SharedStyles/Input';
-
 import Header from '../components/Header';
 import NumberFormat from "react-number-format";
 
@@ -92,7 +91,13 @@ export default function Income () {
 
   return (
     <>
-      <Header pageTitle="Nova entrada" hasLogOutIcon={false} margin="40px" />
+      <Header 
+        pageTitle="Nova entrada" 
+        hasLogOutIcon={false} 
+        margin="40px"
+        value={value}
+        description={description}
+      />
       <Form onSubmit={addIncome}>
         <MoneyInput
           placeholder="Valor"

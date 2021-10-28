@@ -18,33 +18,37 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
       clearStorage();
       setUserData("");
     }
+    if (header.includes("Voltar")) {
+      history.push("/home");
+      return;
+    }
     if (redirect) {
       history.push("/");
     }
   }
 
   function closeModal(e) {
-    if (modalRef.current === e.target) {
-      setShowModal(false);
-    } else {
-      setShowModal(false);
-    } 
-    toRedirect();
+    if (
+      buttons === 1 ||
+      (header.includes("Voltar") && e?.target.className === "second") ||
+      (header.includes("Sair") && e?.target.className === "second")
+    ) {
+      toRedirect();
+    }
+    cancelAction(e);
   }
 
   function cancelAction (e) {
-    if (modalRef.current === e.target) {
-      setShowModal(false);
-    } else {
-      setShowModal(false);
-    } 
+    setShowModal(false);
   }
 
   const modalKeyEvents = useCallback(
     (e) => {
       if (e.key === "Escape" && showModal === true) {
         setShowModal(false);
-        toRedirect();
+        if (buttons === 1) {
+          toRedirect();
+        }
       }
     },
     [setShowModal, showModal]

@@ -91,7 +91,13 @@ export default function Expense () {
 
   return (
     <>
-      <Header pageTitle="Nova saída" hasLogOutIcon={false} margin="40px" />
+      <Header 
+        pageTitle="Nova saída" 
+        hasLogOutIcon={false} 
+        margin="40px"
+        value={value}
+        description={description}
+      />
       <Form onSubmit={addExpense}>
         <MoneyInput
           placeholder="Valor"

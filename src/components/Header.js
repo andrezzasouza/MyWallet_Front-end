@@ -5,10 +5,10 @@ import { TiArrowBackOutline } from 'react-icons/ti';
 import { VscSignOut } from "react-icons/vsc";
 
 import PopModal from './Modal';
-// import Exit from "./Exit";
 
-export default function Header ({pageTitle, hasLogOutIcon, margin}) {
+export default function Header ({pageTitle, hasLogOutIcon, margin, value, description}) {
 
+  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [header, setHeader] = useState("");
   const [message, setMessage] = useState("");
@@ -24,6 +24,11 @@ export default function Header ({pageTitle, hasLogOutIcon, margin}) {
   }
 
   function goBack() {
+    
+    if (!value && !description) {
+      history.push("/home");
+      return;
+    }
     setHeader("Voltar");
     setMessage("Você realmente deseja abandonar esse registro e voltar pra home?");
     setButtons(2);
