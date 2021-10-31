@@ -1,6 +1,7 @@
-import { Modal, ModalBackground, ModalButtons, TopSection } from "../assets/SharedStyles/Modal";
-import { useHistory } from "react-router-dom";
 import { useRef, useEffect, useCallback, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
+import { Modal, ModalBackground, ModalButtons, TopSection } from "../assets/SharedStyles/Modal";
 import UserContext from "../contexts/UserContext";
 
 export default function PopModal ({ message, header, buttons, showModal, setShowModal, redirect }) {
@@ -26,6 +27,10 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
       history.push("/");
     }
   }
+  
+  function cancelAction(e) {
+    setShowModal(false);
+  }
 
   function closeModal(e) {
     if (
@@ -35,11 +40,7 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
     ) {
       toRedirect();
     }
-    cancelAction(e);
-  }
-
-  function cancelAction (e) {
-    setShowModal(false);
+    cancelAction(e)
   }
 
   const modalKeyEvents = useCallback(

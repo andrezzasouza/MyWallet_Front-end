@@ -1,8 +1,8 @@
-import './assets/styles/styles.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import UserContext from './contexts/UserContext';
 
+import "./assets/styles/styles.css";
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';

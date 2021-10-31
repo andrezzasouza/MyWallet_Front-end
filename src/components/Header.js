@@ -1,13 +1,16 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { TiArrowBackOutline } from 'react-icons/ti';
-import { VscSignOut } from "react-icons/vsc";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import PopModal from './Modal';
+import { AppHeader, Back, Exit } from "../assets/SharedStyles/HeaderStyles";
+import PopModal from "./Modal";
 
-export default function Header ({pageTitle, hasLogOutIcon, margin, value, description}) {
-
+export default function Header({
+  pageTitle,
+  hasLogOutIcon,
+  margin,
+  value,
+  description,
+}) {
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [header, setHeader] = useState("");
@@ -24,13 +27,14 @@ export default function Header ({pageTitle, hasLogOutIcon, margin, value, descri
   }
 
   function goBack() {
-    
     if (!value && !description) {
       history.push("/home");
       return;
     }
     setHeader("Voltar");
-    setMessage("Você realmente deseja abandonar esse registro e voltar pra home?");
+    setMessage(
+      "Você realmente deseja abandonar esse registro e voltar pra home?"
+    );
     setButtons(2);
     setRedirect(true);
     setShowModal(true);
@@ -39,13 +43,7 @@ export default function Header ({pageTitle, hasLogOutIcon, margin, value, descri
   return (
     <AppHeader margin={margin}>
       <h1>{pageTitle}</h1>
-      {hasLogOutIcon ? (
-        <Exit
-          onClick={logOut}
-        />
-      ) : (
-        <Back onClick={goBack} />
-      )}
+      {hasLogOutIcon ? <Exit onClick={logOut} /> : <Back onClick={goBack} />}
       {showModal ? (
         <>
           <PopModal
@@ -63,33 +61,3 @@ export default function Header ({pageTitle, hasLogOutIcon, margin, value, descri
     </AppHeader>
   );
 }
-
-const AppHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: ${(props) => props.margin};
-
-  h1 {
-    font-weight: 700;
-    font-size: 26px;
-    line-height: 31px;
-    color: #ffffff;
-    max-width: calc(100% - 35px);
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-`;
-
-const Back = styled(TiArrowBackOutline)`
-  font-size: 28.55px;
-  color: #ffffff;
-  cursor: pointer;
-`;
-
-const Exit = styled(VscSignOut)`
-  font-size: 28.55px;
-  color: #ffffff;
-  cursor: pointer;
-`;

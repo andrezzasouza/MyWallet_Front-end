@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import LongerButton from '../components/LongButton';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import API from "../services/api/api"
+
+import { Form, MoneyInput } from '../assets/SharedStyles/PageStyles';
 import PopModal from '../components/Modal';
-
 import { Input } from '../assets/SharedStyles/Input';
+import LongerButton from "../components/LongButton";
 import Header from '../components/Header';
-import NumberFormat from "react-number-format";
-
 
 export default function Income () {
   const [value, setValue] = useState("");
@@ -147,26 +145,3 @@ export default function Income () {
     </>
   );
 }
-
-const Form = styled.form`
-  max-width: 540px;
-  margin: 0 auto;
-`
-
-const MoneyInput = styled(NumberFormat)`
-  font-family: "Raleway", sans-serif;
-  width: 100%;
-  height: 58px;
-  border: none;
-  border-radius: 5px;
-  padding: 18px 15px 17px;
-  font-size: 20px;
-  line-height: 23px;
-  margin: 0 0 13px;
-  background-color: ${(props) => (props.clickable ? "#FFFFFF" : "#d4d2d2")};
-  pointer-events: ${(props) => (props.clickable ? "auto" : "none")};
-
-  &::placeholder {
-    color: #000000;
-  }
-`;
