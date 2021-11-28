@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { RedirectText, PageHolder } from '../assets/SharedStyles/PageStyles';
-import { Input } from '../assets/SharedStyles/Input';
+import { RedirectText, PageHolder } from '../assets/styles/PageStyles';
+import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
 import PopModal from '../components/Modal';
 import Logo from '../components/Logo';

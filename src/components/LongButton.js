@@ -1,5 +1,5 @@
 import Loader from 'react-loader-spinner';
-import { LongButton } from '../assets/SharedStyles/LongButton';
+import { LongButton } from '../assets/styles/LongButton';
 
 export default function LongerButton({ type, margin, enabled, text }) {
   return (
