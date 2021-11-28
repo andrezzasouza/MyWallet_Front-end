@@ -44,7 +44,7 @@ export default function Header({
     <AppHeader margin={margin}>
       <h1>{pageTitle}</h1>
       {hasLogOutIcon ? (
-        <Exit onClick={() => logOut()} />
+        <Exit id="out" onClick={() => logOut()} />
       ) : (
         <Back onClick={() => goBack()} />
       )}

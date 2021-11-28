@@ -75,10 +75,10 @@ export default function SignUp() {
         } else if (error === 409) {
           setHeader('Algo deu errado!');
           setMessage(
-            'Você já tem uma conta. Clique no link abaixo para fazer seu login.'
+            'Você já tem uma conta. Clique no botão abaixo para fazer seu login.'
           );
           setButtons(1);
-          setRedirect(false);
+          setRedirect(true);
           setShowModal(true);
         } else if (error === 500) {
           setHeader('Algo deu errado!');

@@ -10,10 +10,12 @@ package-lock.json
 .eslintrc.json
 .eslintcache
 .prettierrc.json
-.husky
+/.husky
 
 # testing
 /coverage
+/cypress
+/cypress.json
 
 # production
 /build
@@ -36,3 +38,4 @@ logs
 .env.production.local
 .env.development
 .env.production
+.env.test
