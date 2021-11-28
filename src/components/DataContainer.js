@@ -3,7 +3,7 @@ import {
   NoEntries,
   EntriesHolder,
   ScrollableContainer
-} from '../assets/SharedStyles/ContainerStyles';
+} from '../assets/styles/DataContainerStyles';
 import Entries from './Entries';
 import Balance from './Balance';
 

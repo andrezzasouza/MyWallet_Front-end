@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { ButtonHolder } from '../assets/SharedStyles/PageStyles';
+import { ButtonHolder } from '../assets/styles/PageStyles';
 import PopModal from '../components/Modal';
 import Header from '../components/Header';
 import LowerButton from '../components/LowerButton';
@@ -37,7 +37,7 @@ export default function Home() {
       })
       .catch((res) => {
         const error = res.response.status;
-        if (error === 401) {
+        if (error === 401 || error === 403) {
           setHeader('Algo deu errado!');
           setMessage('Acesso negado. Faça seu login novamente.');
           setButtons(1);

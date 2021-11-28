@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { Form, MoneyInput } from '../assets/SharedStyles/PageStyles';
+import { Form, MoneyInput } from '../assets/styles/PageStyles';
 import PopModal from '../components/Modal';
-import { Input } from '../assets/SharedStyles/Input';
+import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
 import Header from '../components/Header';
 
@@ -64,7 +64,7 @@ export default function Income() {
           setButtons(1);
           setRedirect(false);
           setShowModal(true);
-        } else if (error === 401) {
+        } else if (error === 401 || error === 403) {
           setHeader('Algo deu errado!');
           setMessage('Acesso negado. Faça seu login novamente.');
           setButtons(1);

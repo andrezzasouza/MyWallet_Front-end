@@ -3,7 +3,7 @@ import {
   EntriesContainer,
   Description,
   Price
-} from '../assets/SharedStyles/EntriesStyles';
+} from '../assets/styles/EntriesStyles';
 
 export default function Entries({ date, description, value, type }) {
   const currencyConfig = {

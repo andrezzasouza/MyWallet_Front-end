@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppHeader, Back, Exit } from '../assets/SharedStyles/HeaderStyles';
+import { AppHeader, Back, Exit } from '../assets/styles/HeaderStyles';
 import PopModal from './Modal';
 
 export default function Header({

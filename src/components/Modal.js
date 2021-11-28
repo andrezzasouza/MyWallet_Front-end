@@ -6,7 +6,7 @@ import {
   ModalBackground,
   ModalButtons,
   TopSection
-} from '../assets/SharedStyles/Modal';
+} from '../assets/styles/Modal';
 import UserContext from '../contexts/UserContext';
 
 export default function PopModal({

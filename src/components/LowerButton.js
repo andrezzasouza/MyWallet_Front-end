@@ -1,4 +1,4 @@
-import { Lower, Plus, Minus } from '../assets/SharedStyles/LowerButtonStyle';
+import { Lower, Plus, Minus } from '../assets/styles/LowerButtonStyle';
 
 export default function LowerButton({ iconType, buttonText }) {
   return (
