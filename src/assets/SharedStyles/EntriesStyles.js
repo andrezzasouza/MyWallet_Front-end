@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const EntriesContainer = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const Price = styled.div`
   font-size: 16px;
   line-height: 19px;
   text-align: right;
-  color: ${(props) => (props.type === "income" ? "#03AC00" : "#C70000")};
+  color: ${(props) => (props.type === 'income' ? '#03AC00' : '#C70000')};
 `;
 
-export { EntriesContainer, Description, Price }
+export { EntriesContainer, Description, Price };

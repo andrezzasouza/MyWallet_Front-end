@@ -1,7 +1,7 @@
-import { LongButton } from "../assets/SharedStyles/LongButton";
-import Loader from "react-loader-spinner";
+import Loader from 'react-loader-spinner';
+import { LongButton } from '../assets/SharedStyles/LongButton';
 
-export default function LongerButton ({type, margin, clickable, enabled, text}) {
+export default function LongerButton({ type, margin, enabled, text }) {
   return (
     <LongButton type={type} margin={margin} clickable={enabled}>
       {enabled ? (

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Modal = styled.div`
   position: fixed;
@@ -27,7 +27,7 @@ const Modal = styled.div`
 `;
 
 const TopSection = styled.div`
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@ const ModalButtons = styled.div`
   margin-top: 25px;
   margin-bottom: 15px;
   button {
-    font-family: "Raleway", sans-serif;
+    font-family: 'Raleway', sans-serif;
     width: 134px;
     height: 37px;
     border-radius: 5px;
@@ -96,9 +96,4 @@ const ModalButtons = styled.div`
   }
 `;
 
-export {
-  Modal,
-  ModalBackground,
-  ModalButtons,
-  TopSection
-}
+export { Modal, ModalBackground, ModalButtons, TopSection };

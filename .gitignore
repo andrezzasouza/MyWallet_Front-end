@@ -4,20 +4,38 @@
 /node_modules
 /.pnp
 .pnp.js
+package-lock.json
+
+# dev
+.eslintrc.json
+.eslintcache
+.prettierrc.json
+/.husky
 
 # testing
 /coverage
+/cypress
+/cypress.json
 
 # production
 /build
 
+#logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
 # misc
+.DS_*
 .DS_Store
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+.env.development
+.env.production
+.env.test

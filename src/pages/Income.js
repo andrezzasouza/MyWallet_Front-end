@@ -1,84 +1,86 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import API from "../services/api/api"
+import API from '../services/api/api';
 
 import { Form, MoneyInput } from '../assets/SharedStyles/PageStyles';
 import PopModal from '../components/Modal';
 import { Input } from '../assets/SharedStyles/Input';
-import LongerButton from "../components/LongButton";
+import LongerButton from '../components/LongButton';
 import Header from '../components/Header';
 
-export default function Income () {
-  const [value, setValue] = useState("");
-  const [description, setDescription] = useState("");
+export default function Income() {
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
   const [enabled, setEnabled] = useState(true);
   const history = useHistory();
   const [showModal, setShowModal] = useState(false);
-  const [header, setHeader] = useState("");
-  const [message, setMessage] = useState("");
+  const [header, setHeader] = useState('');
+  const [message, setMessage] = useState('');
   const [buttons, setButtons] = useState(1);
   const [redirect, setRedirect] = useState(false);
 
-  if (!localStorage.getItem("loginData")) {
-    history.push("/");
+  if (!localStorage.getItem('loginData')) {
+    history.push('/');
   }
 
-  const jsonToken = JSON.parse(localStorage.getItem("loginData"));
+  const jsonToken = JSON.parse(localStorage.getItem('loginData'));
 
   function addIncome(e) {
     setEnabled(false);
     e.preventDefault();
 
-    const formatValue = Number(value?.replace("R$ ", "").replace(",", ""));
+    const formatValue = Number(value?.replace('R$ ', '').replace(',', ''));
 
     const body = {
       description,
       value: formatValue,
-      type: "income",
+      type: 'income'
     };
-    
+
     const token = `Bearer ${jsonToken?.token}`;
-    const promise = API.post("/entry", body, {
-      headers: { Authorization: token },
+    const promise = API.post('/entry', body, {
+      headers: { Authorization: token }
     });
 
     promise
       .then(() => {
-        history.push("/home");
+        history.push('/home');
       })
       .catch((res) => {
-        let error = res.response.status;
+        const error = res.response.status;
 
-        let serverMessage = res.response?.data.message;
-        let displayMessage = "Dados inválidos.";
+        const serverMessage = res.response?.data.message;
+        let displayMessage = 'Dados inválidos.';
 
-        if (serverMessage?.includes("description")) {
-          displayMessage = "A descrição deve ter pelo menos 2 caracteres.";
-        } else if (serverMessage?.includes("value")) {
-          displayMessage = "O valor mínimo deve ser de pelo menos R$ 0,01.";
+        if (serverMessage?.includes('description')) {
+          displayMessage = 'A descrição deve ter pelo menos 2 caracteres.';
+        } else if (serverMessage?.includes('value')) {
+          displayMessage = 'O valor mínimo deve ser de pelo menos R$ 0,01.';
         }
 
         if (error === 400) {
-          setHeader("Algo deu errado!");
+          setHeader('Algo deu errado!');
           setMessage(`${displayMessage} Verifique e tente novamente.`);
           setButtons(1);
           setRedirect(false);
           setShowModal(true);
         } else if (error === 401) {
-          setHeader("Algo deu errado!");
-          setMessage("Acesso negado. Faça seu login novamente.");
+          setHeader('Algo deu errado!');
+          setMessage('Acesso negado. Faça seu login novamente.');
           setButtons(1);
           setRedirect(false);
           setShowModal(true);
         } else if (error === 500) {
-          setHeader("Algo deu errado!");
-          setMessage("Não foi possível acessar a base de dados. Tente novamente.");
+          setHeader('Algo deu errado!');
+          setMessage(
+            'Não foi possível acessar a base de dados. Tente novamente.'
+          );
           setButtons(1);
           setRedirect(false);
           setShowModal(true);
         } else {
-          setHeader("Algo deu errado!");
-          setMessage("Algo deu errado. Tente novamente.");
+          setHeader('Algo deu errado!');
+          setMessage('Algo deu errado. Tente novamente.');
           setButtons(1);
           setRedirect(false);
           setShowModal(true);
@@ -89,21 +91,21 @@ export default function Income () {
 
   return (
     <>
-      <Header 
-        pageTitle="Nova entrada" 
-        hasLogOutIcon={false} 
+      <Header
+        pageTitle="Nova entrada"
+        hasLogOutIcon={false}
         margin="40px"
         value={value}
         description={description}
       />
-      <Form onSubmit={addIncome}>
+      <Form onSubmit={(e) => addIncome(e)}>
         <MoneyInput
           placeholder="Valor"
           thousandSeparator={false}
-          prefix={"R$ "}
+          prefix="R$ "
           allowNegative={false}
           decimalScale={2}
-          fixedDecimalScale={true}
+          fixedDecimalScale
           decimalSeparator=","
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -121,26 +123,24 @@ export default function Income () {
           required
         />
         <LongerButton
-          type={"submit"}
-          margin={"36px"}
+          type="submit"
+          margin="36px"
           enabled={enabled}
           clickable={enabled}
-          text={"Salvar entrada"}
+          text="Salvar entrada"
         />
       </Form>
       {showModal ? (
-        <>
-          <PopModal
-            header={header}
-            message={message}
-            buttons={buttons}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            redirect={redirect}
-          />
-        </>
+        <PopModal
+          header={header}
+          message={message}
+          buttons={buttons}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          redirect={redirect}
+        />
       ) : (
-        ""
+        ''
       )}
     </>
   );

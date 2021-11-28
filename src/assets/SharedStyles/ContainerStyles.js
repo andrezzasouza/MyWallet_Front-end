@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const DataHolder = styled.main`
   width: 100%;
@@ -35,10 +35,9 @@ const ScrollableContainer = styled.div`
   scrollbar-width: none;
   -ms-overflow-style: none;
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 `;
-
 
 export { DataHolder, NoEntries, EntriesHolder, ScrollableContainer };

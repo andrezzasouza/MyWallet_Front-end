@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { TiArrowBackOutline } from "react-icons/ti";
-import { VscSignOut } from "react-icons/vsc";
+import { TiArrowBackOutline } from 'react-icons/ti';
+import { VscSignOut } from 'react-icons/vsc';
 
 const AppHeader = styled.header`
   display: flex;
