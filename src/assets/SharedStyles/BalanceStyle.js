@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const BalanceContainer = styled.div`
   display: flex;
@@ -7,7 +7,7 @@ const BalanceContainer = styled.div`
   font-size: 17px;
   line-height: 20px;
   margin: 10px 0 0;
-  color: ${(props) => (props.positive ? "#03AC00" : "#C70000")};
+  color: ${(props) => (props.positive ? '#03AC00' : '#C70000')};
 
   p:first-child {
     font-weight: bold;
@@ -20,6 +20,4 @@ const BalanceContainer = styled.div`
   }
 `;
 
-export {
-  BalanceContainer
-}
+export { BalanceContainer };

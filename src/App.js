@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import UserContext from './contexts/UserContext';
 
-import "./assets/styles/styles.css";
+import './assets/styles/styles.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
@@ -10,16 +10,15 @@ import Income from './pages/Income';
 import Expense from './pages/Expense';
 
 function App() {
-  
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState('');
 
   useEffect(() => {
-    const userLogin = JSON.parse(localStorage.getItem("loginData"));
+    const userLogin = JSON.parse(localStorage.getItem('loginData'));
     if (userLogin) setUserData(userLogin);
   }, []);
 
   return (
-    <UserContext.Provider value={{userData, setUserData}}>
+    <UserContext.Provider value={{ userData, setUserData }}>
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />

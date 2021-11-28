@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
+import styled from 'styled-components';
+import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi';
 
 const Lower = styled.button`
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   height: 114px;
   width: calc(50vw - 30px);
   border-radius: 5px;
@@ -34,8 +34,4 @@ const Minus = styled(FiMinusCircle)`
   font-size: 26.25px;
 `;
 
-export {
-  Lower,
-  Plus,
-  Minus
-}
+export { Lower, Plus, Minus };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: "https://mywallet-back-end.herokuapp.com",
+  baseURL: process.env.REACT_APP_API_BASE_URL
 });
 
 export default API;

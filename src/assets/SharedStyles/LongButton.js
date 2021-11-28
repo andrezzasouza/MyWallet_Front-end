@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const LongButton = styled.button`
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   width: 100%;
   height: 46px;
   border: none;
@@ -15,8 +15,8 @@ const LongButton = styled.button`
   color: #ffffff;
   background-color: #a328d6;
   margin-bottom: ${(props) => props.margin};
-  pointer-events: ${(props) => (props.clickable ? "auto" : "none")};
+  pointer-events: ${(props) => (props.clickable ? 'auto' : 'none')};
   opacity: ${(props) => (props.clickable ? 1 : 0.7)};
 `;
 
-export {LongButton}
+export { LongButton };

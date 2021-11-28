@@ -1,51 +1,62 @@
-import { useRef, useEffect, useCallback, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useRef, useEffect, useCallback, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { Modal, ModalBackground, ModalButtons, TopSection } from "../assets/SharedStyles/Modal";
-import UserContext from "../contexts/UserContext";
+import {
+  Modal,
+  ModalBackground,
+  ModalButtons,
+  TopSection
+} from '../assets/SharedStyles/Modal';
+import UserContext from '../contexts/UserContext';
 
-export default function PopModal ({ message, header, buttons, showModal, setShowModal, redirect }) {
-
+export default function PopModal({
+  message,
+  header,
+  buttons,
+  showModal,
+  setShowModal,
+  redirect
+}) {
   const history = useHistory();
   const modalRef = useRef();
   const { setUserData } = useContext(UserContext);
 
   function clearStorage() {
-    window.localStorage.removeItem("loginData");
+    window.localStorage.removeItem('loginData');
   }
 
   function toRedirect() {
-    if (header.includes("Sair")) {
+    if (header.includes('Sair')) {
       clearStorage();
-      setUserData("");
+      setUserData('');
     }
-    if (header.includes("Voltar")) {
-      history.push("/home");
+    if (header.includes('Voltar')) {
+      history.push('/home');
       return;
     }
     if (redirect) {
-      history.push("/");
+      history.push('/');
     }
   }
-  
-  function cancelAction(e) {
+
+  function cancelAction() {
     setShowModal(false);
   }
 
   function closeModal(e) {
     if (
       buttons === 1 ||
-      (header.includes("Voltar") && e?.target.className === "second") ||
-      (header.includes("Sair") && e?.target.className === "second")
+      (header.includes('Voltar') && e?.target.className === 'second') ||
+      (header.includes('Sair') && e?.target.className === 'second')
     ) {
       toRedirect();
     }
-    cancelAction(e)
+    cancelAction();
   }
 
   const modalKeyEvents = useCallback(
     (e) => {
-      if (e.key === "Escape" && showModal === true) {
+      if (e.key === 'Escape' && showModal === true) {
         setShowModal(false);
         if (buttons === 1) {
           toRedirect();
@@ -56,15 +67,15 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
   );
 
   useEffect(() => {
-    window.addEventListener("keydown", modalKeyEvents);
+    window.addEventListener('keydown', modalKeyEvents);
     return function cleanupListener() {
-      window.removeEventListener("keydown", modalKeyEvents);
+      window.removeEventListener('keydown', modalKeyEvents);
     };
   }, [modalKeyEvents]);
 
   return (
     <>
-      <ModalBackground ref={modalRef} onClick={closeModal}></ModalBackground>
+      <ModalBackground ref={modalRef} onClick={(e) => closeModal(e)} />
       <Modal>
         <TopSection>
           <h2>{header}</h2>
@@ -72,21 +83,27 @@ export default function PopModal ({ message, header, buttons, showModal, setShow
         <h3>{message}</h3>
         {buttons === 1 ? (
           <ModalButtons>
-            <button className="second" onClick={closeModal}>
+            <button
+              type="button"
+              className="second"
+              onClick={(e) => closeModal(e)}
+            >
               Ok!
             </button>
           </ModalButtons>
         ) : (
-          <>
-            <ModalButtons>
-              <button onClick={cancelAction}>
-                Cancelar!
-              </button>
-              <button className="second" onClick={closeModal}>
-                Sim!
-              </button>
-            </ModalButtons>
-          </>
+          <ModalButtons>
+            <button type="button" onClick={() => cancelAction()}>
+              Cancelar!
+            </button>
+            <button
+              type="button"
+              className="second"
+              onClick={(e) => closeModal(e)}
+            >
+              Sim!
+            </button>
+          </ModalButtons>
         )}
       </Modal>
     </>

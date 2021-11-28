@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const AppName = styled.h1`
-  font-family: "Saira Stencil One", cursive;
+  font-family: 'Saira Stencil One', cursive;
   font-size: 32px;
   line-height: 50px;
   color: #ffffff;
@@ -14,6 +14,4 @@ const AppName = styled.h1`
   }
 `;
 
-export {
-  AppName,
-}
+export { AppName };
