@@ -50,9 +50,9 @@ export default function Login() {
         const serverMessage = res.response?.data.message;
         let displayMessage = 'Dados inválidos.';
 
-        if (serverMessage.includes('email')) {
+        if (serverMessage?.includes('email')) {
           displayMessage = 'E-mail inválido.';
-        } else if (serverMessage.includes('password')) {
+        } else if (serverMessage?.includes('password')) {
           displayMessage = 'A senha deve ter pelo menos 6 caracteres.';
         }
 

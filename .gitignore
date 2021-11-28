@@ -5,7 +5,6 @@
 /.pnp
 .pnp.js
 package-lock.json
-# remove package-lock from commits: git rm --cached package-lock.json
 
 # dev
 .eslintrc.json
@@ -35,6 +34,5 @@ logs
 .env.development.local
 .env.test.local
 .env.production.local
-.env.dev
-.env.prod
-.env.test
+.env.development
+.env.production

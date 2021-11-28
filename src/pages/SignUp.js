@@ -56,13 +56,13 @@ export default function SignUp() {
         const serverMessage = res.response?.data.message;
         let displayMessage = 'Dados inválidos.';
 
-        if (serverMessage.includes('email')) {
+        if (serverMessage?.includes('email')) {
           displayMessage = 'E-mail inválido.';
-        } else if (serverMessage.includes('repeatPassword')) {
+        } else if (serverMessage?.includes('repeatPassword')) {
           displayMessage = 'A confirmação da senha deve ser igual à senha.';
-        } else if (serverMessage.includes('password')) {
+        } else if (serverMessage?.includes('password')) {
           displayMessage = 'A senha deve ter pelo menos 6 caracteres.';
-        } else if (serverMessage.includes('name')) {
+        } else if (serverMessage?.includes('name')) {
           displayMessage = 'O nome deve conter pelo menos 2 letras.';
         }
 
