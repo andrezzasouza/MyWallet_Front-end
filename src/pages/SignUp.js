@@ -8,8 +8,8 @@ import {
 } from '../assets/styles/PageStyles';
 import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
-import { signUpErr } from '../assets/misc/StatusMessages';
-import { failureConfig } from '../assets/misc/SharedFunctions';
+import { signUpErr } from '../assets/helpers/StatusMessages';
+import { failureConfig } from '../assets/helpers/SharedFunctions';
 import PopModal from '../components/Modal';
 import Logo from '../components/Logo';
 
