@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+<h1>MyWallet</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src='./src/assets/images/mywallet.gif' alt='Gif showing how to use MyWallet' align='right' style='margin-left: 25px;' />
 
-## Available Scripts
+MyWallet is an app that helps you organize your finances.
 
-In the project directory, you can run:
+You can start getting your control over your money back right now! Test it here: https://mywallet-front-end.vercel.app/
 
-### `npm start`
+<h2>Contents</h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- <a href="#about">About</a>
+- <a href="#tech">Technologies</a>
+- <a href="#reqs">Requirements</a>
+- <a href="#run">How to run</a>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<h2 id="about">About</h2>
 
-### `npm test`
+MyWallet is a web application that you can use to manage your finances.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+It allows you to:
 
-### `npm run build`
+- Create an account
+- Log into a created account
+- Log income and expenses
+- Review list of incomes and expenses
+- Check out how much money (or debt) you currently have
+- Log out to keep your data safe
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This app can help you understand your expenditure patterns. Therefore, it can also allow you to notice if you could make better use of your hard-earned money.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<h2 id="tech">Technologies</h2>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Javascript
+- React JS
+- React Router DOM
+- Axios
+- Styled Components
+- Husky
+- Cypress
 
-### `npm run eject`
+<h2 id="reqs">Requirements</h2>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+In order to run this project, you must have _npm_ installed.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h3>Windows</h3>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+If you use Microsoft Windows, you can download it from here and run it to install: https://nodejs.org/dist/v16.13.0/node-v16.13.0-x86.msi
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<h3>Linux</h3>
 
-## Learn More
+However, if you use Linux, you can do so by following the tutorial below.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Open your terminal and run one of these commands.**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Their structure varies according to the distro you are using.
 
-### Code Splitting
+Ubuntu:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+```
 
-### Analyzing the Bundle Size
+If the command above does not work, try this one:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+```
 
-### Making a Progressive Web App
+2. **Close and reopen the terminal before running the following lines:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+nvm install --lts
+nvm use --lts
+```
 
-### Advanced Configuration
+3. **In case you need extra help:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+You can refer to the official documentation here: https://github.com/nvm-sh/nvm
 
-### Deployment
+4. **You are ready to go!**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<h2 id="run">How To Run</h2>
 
-### `npm run build` fails to minify
+Some steps are necessary for this project to run as it should in your machine.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Clone this repository:**
+
+You can clone this repository by copy this link:
+
+<img src='./src/assets/images/front-clone.gif' alt="Gif showing how to copy this repository's clone link" />
+
+Then you open your terminal and run:
+
+```
+git clone https://github.com/andrezzasouza/MyWallet_Front-end.git
+```
+
+2. **Clone the back-end repository:**
+
+As this project consists of both front and back-end, you will need to clone the back-end repository as well.
+
+It can be done here: https://github.com/andrezzasouza/MyWallet_Back-end
+
+3. **Configure the back-end:**
+
+You can find the instructions on the link above.
+
+4. **Install dependencies:**
+
+Open your prefered terminal and run this command to install the dependencies:
+
+```
+  npm i
+```
+
+5. **Explore MyWallet:**
+
+In order to run MyWallet and get to explore it, you must run this command on your terminal:
+
+```
+  npm start
+```
