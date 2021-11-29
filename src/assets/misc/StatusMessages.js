@@ -1,17 +1,24 @@
+const check = 'Verifique e tente novamente.';
+
 function ifNoError(err) {
   if (!err.response) {
     return 'Algo deu errado. Por favor, tente novamente.';
   }
 }
 
-const signUpErr = (err) => {
-  ifNoError(err);
-
+function messageConfig(err) {
   const { status } = err.response;
   const { message } = err.response.data;
-  let serverMessage = '';
-  let displayMessage = '';
-  const check = 'Verifique e tente novamente.';
+  const serverMessage = '';
+  const displayMessage = '';
+  return { status, serverMessage, message, displayMessage };
+}
+
+const signUpErr = (err) => {
+  ifNoError(err);
+  let { displayMessage, serverMessage } = messageConfig(err);
+  const { status, message } = messageConfig(err);
+
   if (status === 400) {
     if (message?.includes('email')) {
       displayMessage = `E-mail inválido. ${check}`;
@@ -32,18 +39,14 @@ const signUpErr = (err) => {
 
 const loginErr = (err) => {
   ifNoError(err);
-
-  const { status } = err.response;
-  const { message } = err.response.data;
-  let serverMessage = '';
-  let displayMessage = '';
+  let { displayMessage, serverMessage } = messageConfig(err);
+  const { status, message } = messageConfig(err);
 
   if (status === 400) {
     if (message?.includes('email')) {
-      displayMessage = 'E-mail inválido. Verifique e tente novamente.';
+      displayMessage = `E-mail inválido. ${check}`;
     } else if (message?.includes('password')) {
-      displayMessage =
-        'A senha deve ter pelo menos 6 caracteres. Verifique e tente novamente.';
+      displayMessage = `A senha deve ter pelo menos 6 caracteres. ${check}`;
     }
     serverMessage = displayMessage;
   }
@@ -55,9 +58,8 @@ const loginErr = (err) => {
 
 const homeErr = (err) => {
   ifNoError();
-  const { status } = err.response;
-  const { message } = err.response.data;
-  let serverMessage = '';
+  let { serverMessage } = messageConfig(err);
+  const { status, message } = messageConfig(err);
   if (status === 401 || status === 500 || status === 403) {
     serverMessage = message;
   }
@@ -66,10 +68,8 @@ const homeErr = (err) => {
 
 const entryErr = (err) => {
   ifNoError(err);
-  const { status } = err.response;
-  const { message } = err.response.data;
-  let serverMessage = '';
-  let displayMessage = '';
+  let { displayMessage, serverMessage } = messageConfig(err);
+  const { status, message } = messageConfig(err);
 
   if (status === 400) {
     if (message?.includes('description')) {
