@@ -2,9 +2,14 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { RedirectText, PageHolder } from '../assets/styles/PageStyles';
+import {
+  LoginSignupRedirectText,
+  LoginSignupPageHolder
+} from '../assets/styles/PageStyles';
 import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
+import { signUpErr } from '../assets/misc/StatusMessages';
+import { failureConfig } from '../assets/misc/SharedFunctions';
 import PopModal from '../components/Modal';
 import Logo from '../components/Logo';
 
@@ -25,82 +30,60 @@ export default function SignUp() {
     history.push('/home');
   }
 
-  function logIntoAccount(e) {
-    e.preventDefault();
-    setEnabled(false);
-
+  function prepareBody() {
     const body = {
       name,
       email,
       password,
       repeatPassword
     };
+    return body;
+  }
 
-    const promise = API.post('/sign-up', body);
+  function successConfig() {
+    setHeader('Sua jornada começou!');
+    setMessage('Conta criada com sucesso! Agora é so fazer o login!');
+    setButtons(1);
+    setShowModal(true);
+    setRedirect(true);
+  }
 
+  function clearInputs() {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setRepeatPassword('');
+  }
+
+  function axiosSignUp() {
+    const promise = API.post('/sign-up', prepareBody());
     promise
       .then(() => {
-        setHeader('Sua jornada começou!');
-        setMessage('Conta criada com sucesso! Agora é so fazer o login!');
-        setButtons(1);
-        setShowModal(true);
-        setRedirect(true);
-        setName('');
-        setEmail('');
-        setPassword('');
-        setRepeatPassword('');
+        successConfig();
+        clearInputs();
       })
-      .catch((res) => {
-        const error = res.response.status;
-
-        const serverMessage = res.response?.data.message;
-        let displayMessage = 'Dados inválidos.';
-
-        if (serverMessage?.includes('email')) {
-          displayMessage = 'E-mail inválido.';
-        } else if (serverMessage?.includes('repeatPassword')) {
-          displayMessage = 'A confirmação da senha deve ser igual à senha.';
-        } else if (serverMessage?.includes('password')) {
-          displayMessage = 'A senha deve ter pelo menos 6 caracteres.';
-        } else if (serverMessage?.includes('name')) {
-          displayMessage = 'O nome deve conter pelo menos 2 letras.';
-        }
-
-        if (error === 400) {
-          setHeader('Algo deu errado!');
-          setMessage(`${displayMessage} Verifique e tente novamente.`);
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 409) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Você já tem uma conta. Clique no botão abaixo para fazer seu login.'
-          );
-          setButtons(1);
+      .catch((err) => {
+        failureConfig(setHeader, setButtons, setRedirect, setShowModal);
+        if (err.response.status === 409) {
           setRedirect(true);
-          setShowModal(true);
-        } else if (error === 500) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Não foi possível acessar a base de dados. Tente novamente.'
-          );
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
+        }
+        if (signUpErr(err)) {
+          setMessage(signUpErr(err));
         } else {
-          setHeader('Algo deu errado!');
           setMessage('Algo deu errado. Tente novamente.');
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
         }
         setEnabled(true);
       });
   }
 
+  function logIntoAccount(e) {
+    e.preventDefault();
+    setEnabled(false);
+    axiosSignUp();
+  }
+
   return (
-    <PageHolder>
+    <LoginSignupPageHolder>
       <Logo margin="28px" />
       <form onSubmit={logIntoAccount}>
         <Input
@@ -148,7 +131,9 @@ export default function SignUp() {
         />
       </form>
       <Link to={enabled ? '/' : '/sign-up'}>
-        <RedirectText>Já tem uma conta? Entre agora!</RedirectText>
+        <LoginSignupRedirectText>
+          Já tem uma conta? Entre agora!
+        </LoginSignupRedirectText>
       </Link>
       {showModal ? (
         <PopModal
@@ -162,6 +147,6 @@ export default function SignUp() {
       ) : (
         ''
       )}
-    </PageHolder>
+    </LoginSignupPageHolder>
   );
 }

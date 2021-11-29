@@ -1,16 +1,14 @@
 import styled from 'styled-components';
 import NumberFormat from 'react-number-format';
 
-/* SIGN UP AND LOGIN  STYLES */
-
-const RedirectText = styled.p`
+const LoginSignupRedirectText = styled.p`
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
   color: #ffffff;
 `;
 
-const PageHolder = styled.div`
+const LoginSignupPageHolder = styled.div`
   width: 100%;
   height: calc(100vh - 25px - 16px);
   margin: 0 auto;
@@ -25,22 +23,18 @@ const PageHolder = styled.div`
   }
 `;
 
-/* HOME STYLES */
-
-const ButtonHolder = styled.div`
+const HomeButtonHolder = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-/* INCOME AND EXPENSE STYLES */
-
-const Form = styled.form`
+const IncomeExpenseForm = styled.form`
   max-width: 540px;
   margin: 0 auto;
 `;
 
-const MoneyInput = styled(NumberFormat)`
+const IncomeExpenseMoneyInput = styled(NumberFormat)`
   font-family: 'Raleway', sans-serif;
   width: 100%;
   height: 58px;
@@ -58,4 +52,10 @@ const MoneyInput = styled(NumberFormat)`
   }
 `;
 
-export { RedirectText, PageHolder, ButtonHolder, Form, MoneyInput };
+export {
+  LoginSignupRedirectText,
+  LoginSignupPageHolder,
+  HomeButtonHolder,
+  IncomeExpenseForm,
+  IncomeExpenseMoneyInput
+};
