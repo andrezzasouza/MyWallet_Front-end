@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { ButtonHolder } from '../assets/styles/PageStyles';
+import { HomeButtonHolder } from '../assets/styles/PageStyles';
 import PopModal from '../components/Modal';
 import Header from '../components/Header';
 import LowerButton from '../components/LowerButton';
 import DataContainer from '../components/DataContainer';
 import UserContext from '../contexts/UserContext';
+import { homeErr } from '../assets/misc/StatusMessages';
+import { failureConfig } from '../assets/misc/SharedFunctions';
 
 export default function Home() {
   const history = useHistory();
@@ -35,28 +37,12 @@ export default function Home() {
       .then((res) => {
         setEntries(res.data);
       })
-      .catch((res) => {
-        const error = res.response.status;
-        if (error === 401 || error === 403) {
-          setHeader('Algo deu errado!');
-          setMessage('Acesso negado. Faça seu login novamente.');
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 500) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Não foi possível acessar a base de dados. Tente novamente.'
-          );
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
+      .catch((err) => {
+        failureConfig(setHeader, setButtons, setRedirect, setShowModal);
+        if (homeErr(err)) {
+          setMessage(homeErr(err));
         } else {
-          setHeader('Algo deu errado!');
           setMessage('Algo deu errado. Tente novamente.');
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
         }
       });
   }, [userData]);
@@ -69,14 +55,14 @@ export default function Home() {
         pageTitle={`Olá, ${username ? username : 'Fulano'}`}
       />
       <DataContainer entries={entries} />
-      <ButtonHolder>
+      <HomeButtonHolder>
         <Link to="/income">
           <LowerButton iconType="plus" buttonText="Nova entrada" />
         </Link>
         <Link to="/expense">
           <LowerButton iconType="minus" buttonText="Nova saída" />
         </Link>
-      </ButtonHolder>
+      </HomeButtonHolder>
       {showModal ? (
         <PopModal
           header={header}
