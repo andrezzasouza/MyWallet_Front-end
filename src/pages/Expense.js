@@ -10,8 +10,8 @@ import PopModal from '../components/Modal';
 import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
 import Header from '../components/Header';
-import { entryErr } from '../assets/misc/StatusMessages';
-import { failureConfig, prepareBody } from '../assets/misc/SharedFunctions';
+import { entryErr } from '../assets/helpers/StatusMessages';
+import { failureConfig, prepareBody } from '../assets/helpers/SharedFunctions';
 
 export default function Expense() {
   const [value, setValue] = useState('');

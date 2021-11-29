@@ -10,8 +10,8 @@ import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
 import Logo from '../components/Logo';
 import UserContext from '../contexts/UserContext';
-import { loginErr } from '../assets/misc/StatusMessages';
-import { failureConfig } from '../assets/misc/SharedFunctions';
+import { loginErr } from '../assets/helpers/StatusMessages';
+import { failureConfig } from '../assets/helpers/SharedFunctions';
 import PopModal from '../components/Modal';
 
 export default function Login() {

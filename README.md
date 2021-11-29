@@ -113,6 +113,10 @@ Open your prefered terminal and run this command to install the dependencies:
   npm i
 ```
 
+Occasionally, it is necessary to manually install some dependencies even after running _npm i_. Your teminal will let you know which dependencies if that is the case.
+
+Alternatively, you can look at the list of dependencies in the file package.json and install them.
+
 5. **Explore MyWallet:**
 
 In order to run MyWallet and get to explore it, you must run this command on your terminal:

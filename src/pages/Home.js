@@ -8,8 +8,8 @@ import Header from '../components/Header';
 import LowerButton from '../components/LowerButton';
 import DataContainer from '../components/DataContainer';
 import UserContext from '../contexts/UserContext';
-import { homeErr } from '../assets/misc/StatusMessages';
-import { failureConfig } from '../assets/misc/SharedFunctions';
+import { homeErr } from '../assets/helpers/StatusMessages';
+import { failureConfig } from '../assets/helpers/SharedFunctions';
 
 export default function Home() {
   const history = useHistory();
