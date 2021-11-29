@@ -6,16 +6,8 @@
 .pnp.js
 package-lock.json
 
-# dev
-.eslintrc.json
-.eslintcache
-.prettierrc.json
-/.husky
-
 # testing
 /coverage
-/cypress
-/cypress.json
 
 # production
 /build
