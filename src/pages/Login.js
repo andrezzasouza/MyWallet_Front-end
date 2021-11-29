@@ -2,11 +2,16 @@ import { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { RedirectText, PageHolder } from '../assets/SharedStyles/PageStyles';
-import { Input } from '../assets/SharedStyles/Input';
+import {
+  LoginSignupRedirectText,
+  LoginSignupPageHolder
+} from '../assets/styles/PageStyles';
+import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
 import Logo from '../components/Logo';
 import UserContext from '../contexts/UserContext';
+import { loginErr } from '../assets/misc/StatusMessages';
+import { failureConfig } from '../assets/misc/SharedFunctions';
 import PopModal from '../components/Modal';
 
 export default function Login() {
@@ -25,80 +30,44 @@ export default function Login() {
     history.push('/home');
   }
 
-  function logIntoAccount(e) {
-    setEnabled(false);
-    e.preventDefault();
-
+  function prepareBody() {
     const body = {
       email,
       password
     };
+    return body;
+  }
 
-    const promise = API.post('/login', body);
+  function clearInputs() {
+    setEmail('');
+    setPassword('');
+  }
 
+  function logIntoAccount(e) {
+    setEnabled(false);
+    e.preventDefault();
+
+    const promise = API.post('/login', prepareBody());
     promise
       .then((res) => {
-        setEmail('');
-        setPassword('');
+        clearInputs();
         setUserData(res.data);
         localStorage.setItem('loginData', JSON.stringify(res.data));
         history.push('/home');
       })
-      .catch((res) => {
-        const error = res.response.status;
-
-        const serverMessage = res.response?.data.message;
-        let displayMessage = 'Dados inválidos.';
-
-        if (serverMessage?.includes('email')) {
-          displayMessage = 'E-mail inválido.';
-        } else if (serverMessage?.includes('password')) {
-          displayMessage = 'A senha deve ter pelo menos 6 caracteres.';
-        }
-
-        if (error === 400) {
-          setHeader('Algo deu errado!');
-          setMessage(`${displayMessage} Verifique e tente novamente.`);
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 404) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Você ainda não tem uma conta com esse e-mail. Clique no link abaixo para fazer seu cadastro ou entre com outro e-mail.'
-          );
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 401) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Combinação email e senha incorreta. Verifique os dados e tente novamente.'
-          );
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 500) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Não foi possível acessar a base de dados. Tente novamente.'
-          );
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
+      .catch((err) => {
+        failureConfig(setHeader, setButtons, setRedirect, setShowModal);
+        if (loginErr(err)) {
+          setMessage(loginErr(err));
         } else {
-          setHeader('Algo deu errado!');
           setMessage('Algo deu errado. Tente novamente.');
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
         }
         setEnabled(true);
       });
   }
 
   return (
-    <PageHolder>
+    <LoginSignupPageHolder>
       <Logo margin="24px" />
       <form onSubmit={logIntoAccount}>
         <Input
@@ -128,7 +97,9 @@ export default function Login() {
         />
       </form>
       <Link to={enabled ? '/sign-up' : '/'}>
-        <RedirectText>Primeira vez? Cadastre-se!</RedirectText>
+        <LoginSignupRedirectText>
+          Primeira vez? Cadastre-se!
+        </LoginSignupRedirectText>
       </Link>
       {showModal ? (
         <PopModal
@@ -142,6 +113,6 @@ export default function Login() {
       ) : (
         ''
       )}
-    </PageHolder>
+    </LoginSignupPageHolder>
   );
 }

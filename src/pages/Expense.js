@@ -2,11 +2,16 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import API from '../services/api/api';
 
-import { Form, MoneyInput } from '../assets/SharedStyles/PageStyles';
+import {
+  IncomeExpenseForm,
+  IncomeExpenseMoneyInput
+} from '../assets/styles/PageStyles';
 import PopModal from '../components/Modal';
-import { Input } from '../assets/SharedStyles/Input';
+import { Input } from '../assets/styles/Input';
 import LongerButton from '../components/LongButton';
 import Header from '../components/Header';
+import { entryErr } from '../assets/misc/StatusMessages';
+import { failureConfig, prepareBody } from '../assets/misc/SharedFunctions';
 
 export default function Expense() {
   const [value, setValue] = useState('');
@@ -29,61 +34,25 @@ export default function Expense() {
     setEnabled(false);
     e.preventDefault();
 
-    const formatValue = Number(value?.replace('R$ ', '').replace(',', ''));
-
-    const body = {
-      description,
-      value: formatValue,
-      type: 'expense'
-    };
-
     const token = `Bearer ${jsonToken?.token}`;
-    const promise = API.post('/entry', body, {
-      headers: { Authorization: token }
-    });
+    const promise = API.post(
+      '/entry',
+      prepareBody(value, description, 'expense'),
+      {
+        headers: { Authorization: token }
+      }
+    );
 
     promise
       .then(() => {
         history.push('/home');
       })
-      .catch((res) => {
-        const error = res.response.status;
-
-        const serverMessage = res.response?.data.message;
-        let displayMessage = 'Dados inválidos.';
-
-        if (serverMessage?.includes('description')) {
-          displayMessage = 'A descrição deve ter pelo menos 2 caracteres.';
-        } else if (serverMessage?.includes('value')) {
-          displayMessage = 'O valor mínimo deve ser de pelo menos R$ 0,01.';
-        }
-
-        if (error === 400) {
-          setHeader('Algo deu errado!');
-          setMessage(`${displayMessage} Verifique e tente novamente.`);
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 401) {
-          setHeader('Algo deu errado!');
-          setMessage('Acesso negado. Faça seu login novamente.');
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
-        } else if (error === 500) {
-          setHeader('Algo deu errado!');
-          setMessage(
-            'Não foi possível acessar a base de dados. Tente novamente.'
-          );
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
+      .catch((err) => {
+        failureConfig(setHeader, setButtons, setRedirect, setShowModal);
+        if (entryErr(err)) {
+          setMessage(entryErr(err));
         } else {
-          setHeader('Algo deu errado!');
           setMessage('Algo deu errado. Tente novamente.');
-          setButtons(1);
-          setRedirect(false);
-          setShowModal(true);
         }
         setEnabled(true);
       });
@@ -98,8 +67,8 @@ export default function Expense() {
         value={value}
         description={description}
       />
-      <Form onSubmit={(e) => addExpense(e)}>
-        <MoneyInput
+      <IncomeExpenseForm onSubmit={(e) => addExpense(e)}>
+        <IncomeExpenseMoneyInput
           placeholder="Valor"
           thousandSeparator={false}
           prefix="R$ "
@@ -129,7 +98,7 @@ export default function Expense() {
           clickable={enabled}
           text="Salvar saída"
         />
-      </Form>
+      </IncomeExpenseForm>
       {showModal ? (
         <PopModal
           header={header}

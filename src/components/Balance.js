@@ -1,4 +1,4 @@
-import { BalanceContainer } from '../assets/SharedStyles/BalanceStyle';
+import { BalanceContainer } from '../assets/styles/BalanceStyle';
 
 export default function Balance({ balance }) {
   const currencyConfig = {
